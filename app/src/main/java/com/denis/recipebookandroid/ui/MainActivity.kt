@@ -1,7 +1,8 @@
-package com.denis.recipebookandroid
+package com.denis.recipebookandroid.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.denis.recipebookandroid.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
