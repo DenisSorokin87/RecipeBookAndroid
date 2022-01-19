@@ -1,7 +1,6 @@
 package com.denis.recipebookandroid.view.ui.login
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -9,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
+import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
 
 class LoginFragment : Fragment(R.layout.fragment_login){
 
@@ -25,6 +25,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
         val passwordText: EditText = view.findViewById(R.id.user_password)
         logInBtn.setOnClickListener(View.OnClickListener {
             loginViewModel.makeLogIn(loginText.text.toString(), passwordText.text.toString())
+            UserMainFragment.newInstance()
         })
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
