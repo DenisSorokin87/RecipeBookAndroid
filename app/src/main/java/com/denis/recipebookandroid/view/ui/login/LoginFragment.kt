@@ -1,9 +1,11 @@
-package com.denis.recipebookandroid.ui.login
+package com.denis.recipebookandroid.view.ui.login
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
@@ -19,16 +21,15 @@ class LoginFragment : Fragment(R.layout.fragment_login){
         super.onViewCreated(view, savedInstanceState)
         println("fragment Created")
         val logInBtn: Button = view.findViewById(R.id.loginBtn)
-        logInBtn.setOnClickListener(View.OnClickListener {
-            loginViewModel.makeLogIn("Denis", "Sorokin")
-        })
         val loginText: EditText = view.findViewById(R.id.user_login_name)
         val passwordText: EditText = view.findViewById(R.id.user_password)
+        logInBtn.setOnClickListener(View.OnClickListener {
+            loginViewModel.makeLogIn(loginText.text.toString(), passwordText.text.toString())
+        })
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
         loginViewModel.liveData.observe(requireActivity(), {
-            isLoggedIn = it
-            println(isLoggedIn)
+            Toast.makeText(requireActivity(), "User id ${it.userId} and User name is ${it.displayName}", Toast.LENGTH_LONG).show()
         })
     }
 }

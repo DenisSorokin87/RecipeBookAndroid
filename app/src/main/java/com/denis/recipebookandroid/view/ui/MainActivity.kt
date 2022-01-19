@@ -1,8 +1,7 @@
-package com.denis.recipebookandroid.ui
+package com.denis.recipebookandroid.view.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.denis.recipebookandroid.R
 
 class MainActivity : AppCompatActivity() {

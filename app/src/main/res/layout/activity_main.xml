@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/recipe_book_background"
-    tools:context=".ui.MainActivity">
+    tools:context=".view.ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.denis.recipebookandroid.ui.login.LoginFragment"
+        android:name="com.denis.recipebookandroid.view.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
