@@ -1,5 +1,7 @@
 package com.denis.recipebookandroid.model.data
 
+import kotlin.String
+
 data class User(
     val userId: Int,
     val userName: String,

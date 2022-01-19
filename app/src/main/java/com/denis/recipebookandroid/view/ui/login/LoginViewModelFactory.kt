@@ -9,7 +9,7 @@ class LoginViewModelFactory: ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(LoginRepository()) as T
+            return LoginViewModel(App.appInstance.getUserRepository()) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

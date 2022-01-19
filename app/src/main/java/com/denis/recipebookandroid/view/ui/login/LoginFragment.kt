@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
+import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
 
 class LoginFragment : Fragment(R.layout.fragment_login){
@@ -23,14 +24,20 @@ class LoginFragment : Fragment(R.layout.fragment_login){
         val logInBtn: Button = view.findViewById(R.id.loginBtn)
         val loginText: EditText = view.findViewById(R.id.user_login_name)
         val passwordText: EditText = view.findViewById(R.id.user_password)
+
         logInBtn.setOnClickListener(View.OnClickListener {
             loginViewModel.makeLogIn(loginText.text.toString(), passwordText.text.toString())
             UserMainFragment.newInstance()
         })
+
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
         loginViewModel.liveData.observe(requireActivity(), {
-            Toast.makeText(requireActivity(), "User id ${it.userId} and User name is ${it.displayName}", Toast.LENGTH_LONG).show()
+            when(it){
+                LoadingState.LOADING -> Toast.makeText(requireActivity(), "Loading", Toast.LENGTH_LONG).show()
+                is LoadingState.LOADED -> Toast.makeText(requireActivity(), "Login Made !!!!! + ${it.data}", Toast.LENGTH_LONG).show()
+                is LoadingState.Error -> Toast.makeText(requireActivity(), "Error.... Fuck You " + it.error.message, Toast.LENGTH_LONG).show()
+            }
         })
     }
 }

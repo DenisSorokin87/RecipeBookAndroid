@@ -3,7 +3,7 @@ package com.denis.recipebookandroid.model.states
 sealed class LoadingState{
 
     object LOADING: LoadingState()
-    object LOADED : LoadingState()
-
+    class LOADED(val data: String) : LoadingState()
+    class Error(val error: Throwable) : LoadingState()
 
 }

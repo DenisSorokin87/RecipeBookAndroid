@@ -3,15 +3,17 @@ package com.denis.recipebookandroid.view.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.denis.recipebookandroid.model.data.LoggedInUser
+import com.denis.recipebookandroid.model.LoginDataSource
 import com.denis.recipebookandroid.model.repositories.LoginRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
-    private val _liveData = MutableLiveData<LoggedInUser>()
-    val liveData: LiveData<LoggedInUser> = _liveData // another option to make MutableLiveData unchangeable to the user at the Activity/Fragment
-    private val _loadingState = MutableLiveData<LoadingState>()
+//    private val _liveData = MutableLiveData<LoggedInUser>()
+//    val liveData: LiveData<LoggedInUser> = _liveData // another option to make MutableLiveData unchangeable to the user at the Activity/Fragment
+
+    var liveData: MutableLiveData<LoadingState> = MutableLiveData<LoadingState>()
+
 
     init {
         println("ViewModel Created")
@@ -28,10 +30,22 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 //    }
 
    fun makeLogIn(login: String, password: String){
-       _liveData.value = loginRepository.login(login, password)
+
+       liveData.value = LoadingState.LOADING
+
+       loginRepository.login(login, password, object : LoginDataSource{
+           override fun onSuccess(data: String) {
+               liveData.value = LoadingState.LOADED(data)
+           }
+
+           override fun onError(error: Throwable) {
+              liveData.value = LoadingState.Error(error)
+           }
+
+       })
    }
 
-    fun checkIfLoginExist(login: String){
+    fun checkIfLoginExist(login: kotlin.String){
 //        _liveData.value = "You can use this Login Name"
     }
 
