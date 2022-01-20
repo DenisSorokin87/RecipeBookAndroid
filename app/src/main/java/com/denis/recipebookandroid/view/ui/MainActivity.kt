@@ -32,19 +32,19 @@ class MainActivity : AppCompatActivity() {
         true
     }
 
-    private fun showMainFragment() {
+     fun showMainFragment() {
         showFragment(UserMainFragment::class.java)
     }
 
-    private fun showSearchFragment() {
+     fun showSearchFragment() {
         showFragment(SearchFragment::class.java)
     }
 
-    private fun showFavoritesFragment() {
+     fun showFavoritesFragment() {
         showFragment(FavoriteFragment::class.java)
     }
 
-    private fun showFragment(fragmentClass: Class<out Fragment>) {
+    fun showFragment(fragmentClass: Class<out Fragment>) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, fragmentClass, null)
             .addToBackStack(null)

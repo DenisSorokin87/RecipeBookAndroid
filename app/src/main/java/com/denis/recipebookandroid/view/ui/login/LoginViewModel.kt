@@ -38,7 +38,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                liveData.value = LoadingState.LOADED(data)
            }
 
-           override fun onError(error: Throwable) {
+           override fun onError(error: String) {
               liveData.value = LoadingState.Error(error)
            }
 
