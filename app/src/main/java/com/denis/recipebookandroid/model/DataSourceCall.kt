@@ -2,8 +2,8 @@ package com.denis.recipebookandroid.model
 
 import java.lang.Exception
 
-interface LoginDataSource {
+interface DataSourceCall {
 
-    fun onSuccess(data: String)
+    fun onSuccess(data: Any)
     fun onError(error: String)
 }

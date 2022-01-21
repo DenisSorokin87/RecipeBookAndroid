@@ -8,9 +8,9 @@
         />
 
     <item
-        android:id="@+id/Nav_Search"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search"
+        android:id="@+id/Nav_User"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="User"
         />
     <item
         android:id="@+id/Nav_Fav"

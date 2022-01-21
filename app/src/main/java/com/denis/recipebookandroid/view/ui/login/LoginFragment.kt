@@ -42,7 +42,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
 
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
-        loginViewModel.liveData.observe(requireActivity(), {
+        loginViewModel.loginLiveData.observe(requireActivity(), {
             when(it){
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED ->{

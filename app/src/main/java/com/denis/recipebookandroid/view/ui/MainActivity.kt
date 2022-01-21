@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.Nav_Home -> showMainFragment()
             R.id.Nav_Fav -> showFavoritesFragment()
-            R.id.Nav_Search -> showSearchFragment()
+            R.id.Nav_User -> showSearchFragment()
         }
         true
     }

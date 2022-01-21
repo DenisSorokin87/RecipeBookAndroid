@@ -3,16 +3,18 @@ package com.denis.recipebookandroid.view.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.denis.recipebookandroid.model.LoginDataSource
-import com.denis.recipebookandroid.model.repositories.LoginRepository
+import com.denis.recipebookandroid.model.DataSourceCall
+import com.denis.recipebookandroid.model.repositories.SignInUpRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewModel() {
 
 //    private val _liveData = MutableLiveData<LoggedInUser>()
 //    val liveData: LiveData<LoggedInUser> = _liveData // another option to make MutableLiveData unchangeable to the user at the Activity/Fragment
 
-    var liveData: MutableLiveData<LoadingState> = MutableLiveData<LoadingState>()
+    private val _loginLiveData = MutableLiveData<LoadingState>()
+    val loginLiveData: LiveData<LoadingState> = _loginLiveData
+
 
 
     init {
@@ -31,15 +33,15 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
    fun makeLogIn(login: String, password: String){
 
-       liveData.value = LoadingState.LOADING
+       _loginLiveData.value = LoadingState.LOADING
 
-       loginRepository.login(login, password, object : LoginDataSource{
-           override fun onSuccess(data: String) {
-               liveData.value = LoadingState.LOADED(data)
+       signInUpRepository.login(login, password, object : DataSourceCall{
+           override fun onSuccess(data: Any) {
+               _loginLiveData.value = LoadingState.LOADED(data)
            }
 
            override fun onError(error: String) {
-              liveData.value = LoadingState.Error(error)
+              _loginLiveData.value = LoadingState.Error(error)
            }
 
        })
