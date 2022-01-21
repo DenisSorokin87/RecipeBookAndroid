@@ -18,6 +18,6 @@ interface LoginService {
     @GET("/RecipeBook-1.0/rest/login/checkIfExist")
     fun checkIfLoginExist(@Query("loginName") loginName: String): Call<Boolean>
 
-    @POST("/createUser")
+    @POST("/RecipeBook-1.0/rest/user/createUser")
     fun createNewUser(@Body user: User): Call<CallResult>
 }

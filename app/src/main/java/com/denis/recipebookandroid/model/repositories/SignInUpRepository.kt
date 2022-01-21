@@ -53,7 +53,8 @@ class SignInUpRepository() {
                 }
 
                 override fun onFailure(call: Call<CallResult>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    println("Failure + ${t.message}")
+                    println(t.cause)
                 }
 
             })
