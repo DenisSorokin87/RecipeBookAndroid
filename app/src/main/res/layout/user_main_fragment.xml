@@ -3,11 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.ui.user_main.UserMainFragment"
     android:background="@android:color/transparent">
 
+    <Button
+        android:id="@+id/sign_in_btn"
+        android:layout_width="117dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:text="SignIN"
+        android:textAllCaps="false"
+        android:visibility="visible"
+        android:background="@drawable/login_button_style"
+       />
+
+    <TextView
+        android:id="@+id/logged_id_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Login User Name"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        tools:listitem="@layout/recipe_item"/>
 
 </LinearLayout>

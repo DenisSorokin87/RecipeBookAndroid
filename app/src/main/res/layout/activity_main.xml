@@ -9,8 +9,8 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
-        android:name="com.denis.recipebookandroid.view.ui.login.LoginFragment"
-        tools:layout="@layout/fragment_login"
+        android:name="com.denis.recipebookandroid.view.ui.user_main.UserMainFragment"
+        tools:layout="@layout/user_main_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
