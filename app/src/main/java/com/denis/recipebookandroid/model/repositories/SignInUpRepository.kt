@@ -1,7 +1,7 @@
 package com.denis.recipebookandroid.model.repositories
 
 import com.denis.recipebookandroid.model.DataSourceCall
-import com.denis.recipebookandroid.model.api.retrofits.LoginRetrofitInstance
+import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
 import com.denis.recipebookandroid.model.data.CallResult
 import com.denis.recipebookandroid.model.data.LoginResult
 import com.denis.recipebookandroid.model.data.User
@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignInUpRepository() {
-    private val loginService = LoginRetrofitInstance.getLoginServiceInstance()
+    private val loginService = RetrofitInstance.getLoginServiceInstance()
 
     fun login(loginName: String, password: String, dataSourceCall: DataSourceCall) {
        val signInCall = loginService.makeLogIn(loginName, password)

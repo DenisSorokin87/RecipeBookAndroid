@@ -43,10 +43,10 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
 
         registerViewModel = ViewModelProvider(requireActivity(), RegistrationViewModelFactory())[RegistrationViewModel::class.java]
 
-        registerViewModel.registerLiveData.observe(requireActivity(), {
-            when(it){
+        registerViewModel.registerLiveData.observe(requireActivity()) {
+            when (it) {
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
-                is LoadingState.LOADED ->{
+                is LoadingState.LOADED -> {
                     progressBar.visibility = View.INVISIBLE
                     (requireActivity() as MainActivity).showFragment(LoginFragment::class.java)
                 }
@@ -55,7 +55,7 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
                     Toast.makeText(requireActivity(), "Error " + it.error, Toast.LENGTH_LONG).show()
                 }
             }
-        })
+        }
 
     }
 

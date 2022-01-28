@@ -42,18 +42,26 @@ class LoginFragment : Fragment(R.layout.fragment_login){
 
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
-        loginViewModel.loginLiveData.observe(requireActivity(), {
-            when(it){
+        loginViewModel.loginLiveData.observe(requireActivity()) {
+            when (it) {
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
-                is LoadingState.LOADED ->{
+                is LoadingState.LOADED -> {
                     progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(requireActivity(), "Login Made !!!!! + ${it.data}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "Login Made !!!!! + ${it.data}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 is LoadingState.Error -> {
                     progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(requireActivity(), "Error.... Fuck You " + it.error, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "Error.... Fuck You " + it.error,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        })
+        }
     }
 }
