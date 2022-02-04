@@ -28,22 +28,28 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
         val signInBtn: Button = view.findViewById(R.id.sign_in_btn)
         val userNameTitle: TextView = view.findViewById(R.id.logged_id_user_name)
 
-
         userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory())[UserMainViewModel::class.java]
+
         recipesRecycler = view.findViewById(R.id.recipes_recycler)
         recipeRecyclerAdapter = RecipeRecyclerAdapter(requireActivity())
 
+        observeForLiveData()
+
+        userViewModel.getAllRecipes()
+
+    }
+
+    private fun observeForLiveData() {
         userViewModel.userLiveData.observe(requireActivity()){
             when(it){
                 is LoadingState.LOADED -> setRecipeRecycler(it.data as ArrayList<Recipe>)
                 is LoadingState.Error -> Toast.makeText(
                     requireActivity(),
-                    "${it.error}",
+                    it.error,
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
