@@ -7,6 +7,7 @@
     android:background="@drawable/recipe_book_background"
     tools:context=".view.ui.MainActivity">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
         android:name="com.denis.recipebookandroid.view.ui.user_main.UserMainFragment"

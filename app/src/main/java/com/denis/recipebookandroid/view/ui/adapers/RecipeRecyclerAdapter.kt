@@ -1,6 +1,7 @@
 package com.denis.recipebookandroid.view.ui.adapers
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,8 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.recipeTitle.text = recipeList[position].recipeTitle
+        holder.dishType.text = recipeList[position].type
+        holder.recipePic.setImageResource(R.drawable.recipe_default_image)
 
         //Setting Ingredients To ListView
         val strIngredientsList = ArrayAdapter<String>(
@@ -28,10 +31,10 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         )
         holder.ingredientsList.adapter = strIngredientsList
 
-        //Setting ONClickListener To the IngredientsListView
-        holder.ingredientsList.setOnClickListener(View.OnClickListener {
-            println(getIngredients(recipeList[position]))
-        })
+//        //Setting ONClickListener To the IngredientsListView
+//        holder.ingredientsList.setOnClickListener(View.OnClickListener {
+//            println(getIngredients(recipeList[position]))
+//        })
 
 
         //Setting Processes ToListView
@@ -69,6 +72,7 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
     class UserViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         var recipeTitle: TextView = itemView.findViewById(R.id.recipe_title)
+        var dishType: TextView = itemView.findViewById(R.id.dish_type)
         var recipePic: ImageView = itemView.findViewById(R.id.recipe_picture)
         var ingredientsList: ListView = itemView.findViewById(R.id.ingredients_list)
         var processList: ListView = itemView.findViewById(R.id.cooking_process_list)

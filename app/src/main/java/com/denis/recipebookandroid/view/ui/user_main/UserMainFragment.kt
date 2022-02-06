@@ -8,11 +8,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.LoadingState
+import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.adapers.RecipeRecyclerAdapter
+import com.denis.recipebookandroid.view.ui.login.LoginFragment
+import com.denis.recipebookandroid.view.ui.registration.RegistrationFragment
 
 class UserMainFragment : Fragment(R.layout.user_main_fragment) {
 
@@ -30,12 +34,25 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
 
         userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory())[UserMainViewModel::class.java]
 
-        recipesRecycler = view.findViewById(R.id.recipes_recycler)
-        recipeRecyclerAdapter = RecipeRecyclerAdapter(requireActivity())
+        recipeRecyclerInit(view)
+
+        signInBtn.setOnClickListener(View.OnClickListener {
+            (requireActivity() as MainActivity).showFragment(LoginFragment::class.java)
+        })
+
+
 
         observeForLiveData()
 
         userViewModel.getAllRecipes()
+
+    }
+
+    private fun recipeRecyclerInit(view: View) {
+        recipesRecycler = view.findViewById(R.id.recipes_recycler)
+        recipesRecycler.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+        recipeRecyclerAdapter = RecipeRecyclerAdapter(requireActivity())
+        recipesRecycler.adapter = recipeRecyclerAdapter
 
     }
 

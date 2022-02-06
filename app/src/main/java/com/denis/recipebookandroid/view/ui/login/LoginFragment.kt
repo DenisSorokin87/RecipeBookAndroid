@@ -1,5 +1,6 @@
 package com.denis.recipebookandroid.view.ui.login
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,6 +13,7 @@ import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.registration.RegistrationFragment
+import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
 
 class LoginFragment : Fragment(R.layout.fragment_login){
 
@@ -52,6 +54,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                         "Login Made !!!!! + ${it.data}",
                         Toast.LENGTH_LONG
                     ).show()
+                    (requireActivity() as MainActivity).showFragment(UserMainFragment::class.java)
                 }
                 is LoadingState.Error -> {
                     progressBar.visibility = View.INVISIBLE

@@ -1,6 +1,8 @@
 package com.denis.recipebookandroid.model.data
 
+
 data class Ingredient(
+
     val ingredientId: Int,
     val ingredient: String,
     val ingredientAmount: Int,
