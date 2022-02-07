@@ -36,16 +36,7 @@ class SignInUpRepository() {
                     response.body()?.let {
                         when(it.status){
                             "SUCCESS"-> {
-                                login(user.loginName, user.password, object : DataSourceCall{
-                                    override fun onSuccess(data: Any) {
-                                        dataSourceCall.onSuccess(data)
-                                    }
-
-                                    override fun onError(error: String) {
-                                        dataSourceCall.onError("Sing In Was Failed, Try to  make log in again")
-                                    }
-                                })
-
+                                dataSourceCall.onSuccess(response.body()!!)
                             }
                             "FAILED" -> dataSourceCall.onError("user creating failed")
                         }

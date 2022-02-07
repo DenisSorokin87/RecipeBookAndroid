@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainer
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.view.ui.favorites.FavoriteFragment
+import com.denis.recipebookandroid.view.ui.login.LoginFragment
 import com.denis.recipebookandroid.view.ui.search.SearchFragment
 import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,22 +35,38 @@ class MainActivity : AppCompatActivity() {
     }
 
      fun showMainFragment() {
-        showFragment(UserMainFragment::class.java)
+        showBottomFragment(UserMainFragment::class.java)
     }
 
      fun showSearchFragment() {
-        showFragment(SearchFragment::class.java)
+        showBottomFragment(SearchFragment::class.java)
     }
 
      fun showFavoritesFragment() {
-        showFragment(FavoriteFragment::class.java)
+        showBottomFragment(FavoriteFragment::class.java)
     }
 
-    fun showFragment(fragmentClass: Class<out Fragment>) {
+    fun showBottomFragment(fragmentClass: Class<out Fragment>) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, fragmentClass, null)
+            .replace(R.id.bottom_fragment_container, fragmentClass, null)
             .addToBackStack(null)
             .commit()
     }
+    fun showUpperFragment(fragmentClass: Class<out Fragment>) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.upper_fragment_container, fragmentClass, null)
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun hideUpperFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+            .hide(fragment)
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .commit()
+    }
+
+
 
 }

@@ -5,10 +5,7 @@ import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.model.data.Recipe
@@ -30,11 +27,6 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
             context, R.layout.list_view_text_style, getIngredients(recipeList[position])
         )
         holder.ingredientsList.adapter = strIngredientsList
-
-//        //Setting ONClickListener To the IngredientsListView
-//        holder.ingredientsList.setOnClickListener(View.OnClickListener {
-//            println(getIngredients(recipeList[position]))
-//        })
 
 
         //Setting Processes ToListView

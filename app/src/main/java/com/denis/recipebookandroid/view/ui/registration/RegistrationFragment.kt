@@ -1,7 +1,6 @@
 package com.denis.recipebookandroid.view.ui.registration
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.model.data.User
 import com.denis.recipebookandroid.model.states.LoadingState
+import com.denis.recipebookandroid.view.ui.BlankFragment
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
 
@@ -47,11 +47,12 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
             when (it) {
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
-                    progressBar.visibility = View.INVISIBLE
-                    (requireActivity() as MainActivity).showFragment(LoginFragment::class.java)
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(requireActivity(), "Registration success ", Toast.LENGTH_LONG).show()
+                    (requireActivity() as MainActivity).showUpperFragment(BlankFragment::class.java)
                 }
                 is LoadingState.Error -> {
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     Toast.makeText(requireActivity(), "Error " + it.error, Toast.LENGTH_LONG).show()
                 }
             }

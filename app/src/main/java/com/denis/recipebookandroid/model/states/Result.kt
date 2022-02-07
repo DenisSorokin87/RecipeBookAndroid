@@ -9,7 +9,7 @@ sealed class Result<out T : Any>{
 
     override fun toString(): String {
         return when(this){
-            is Success<*> -> "Succsses[data=$data]"
+            is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
         }
 

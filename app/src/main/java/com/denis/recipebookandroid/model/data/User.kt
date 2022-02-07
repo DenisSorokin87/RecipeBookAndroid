@@ -1,5 +1,6 @@
 package com.denis.recipebookandroid.model.data
 
+import androidx.room.Entity
 import kotlin.String
 
 data class User(

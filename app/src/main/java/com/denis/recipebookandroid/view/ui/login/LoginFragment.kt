@@ -1,6 +1,5 @@
 package com.denis.recipebookandroid.view.ui.login
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,9 +7,11 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.model.states.LoadingState
+import com.denis.recipebookandroid.view.ui.BlankFragment
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.registration.RegistrationFragment
 import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
@@ -38,7 +39,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
 
 
         signUpBtn.setOnClickListener(View.OnClickListener {
-            (requireActivity() as MainActivity).showFragment(RegistrationFragment::class.java)
+            (requireActivity() as MainActivity).showUpperFragment(RegistrationFragment::class.java)
         })
 
 
@@ -48,16 +49,17 @@ class LoginFragment : Fragment(R.layout.fragment_login){
             when (it) {
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
                         "Login Made !!!!! + ${it.data}",
                         Toast.LENGTH_LONG
                     ).show()
-                    (requireActivity() as MainActivity).showFragment(UserMainFragment::class.java)
+                    (requireActivity() as MainActivity).showBottomFragment(UserMainFragment::class.java)
+                    (requireActivity() as MainActivity).showUpperFragment(BlankFragment::class.java)
                 }
                 is LoadingState.Error -> {
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
                         "Error.... Fuck You " + it.error,
