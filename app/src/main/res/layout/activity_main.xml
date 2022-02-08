@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:name="com.denis.recipebookandroid.view.ui.BlankFragment"
-        tools:layout="@layout/fragment_blank"
+        android:name="com.denis.recipebookandroid.view.ui.login.LoginFragment"
+        tools:layout="@layout/fragment_login"
         />
 
     <androidx.fragment.app.FragmentContainerView

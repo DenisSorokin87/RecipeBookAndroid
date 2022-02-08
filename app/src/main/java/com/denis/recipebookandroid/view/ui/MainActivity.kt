@@ -57,10 +57,11 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.bottom_fragment_container, fragmentClass, null)
             .addToBackStack(null)
             .commit()
+//        (supportFragmentManager.findFragmentByTag("Tag") as UserMainFragment)
     }
     fun showUpperFragment(fragmentClass: Class<out Fragment>) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.upper_fragment_container, fragmentClass, null)
+            .replace(R.id.upper_fragment_container, UserMainFragment(), "Tag")
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .addToBackStack(null)
             .commit()

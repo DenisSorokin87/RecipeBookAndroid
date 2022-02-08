@@ -12,6 +12,8 @@ import com.denis.recipebookandroid.model.data.Recipe
 
 class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> = emptyList()): RecyclerView.Adapter<RecipeRecyclerAdapter.UserViewHolder>()  {
 
+    var onClick: ((ingredients: ArrayList<String>) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val recipeList = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false)
         return UserViewHolder(recipeList)
@@ -29,6 +31,9 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         )
         holder.ingredientsList.adapter = strIngredientsList
 
+        holder.ingredientsList.setOnItemClickListener { parent, view, pos, id ->
+            onClick?.invoke(getIngredients(recipeList[position]))
+        }
 
         //Setting Processes ToListView
         val strProcessList = ArrayAdapter<String>(

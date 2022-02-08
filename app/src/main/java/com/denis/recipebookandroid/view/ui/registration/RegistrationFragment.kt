@@ -51,7 +51,7 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
     private fun viewModelObserve() {
         registerViewModel.registerLiveData.observe(requireActivity()) {
             when (it) {
-                LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
+                is LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progressBar.visibility = View.GONE
                     Toast.makeText(requireActivity(), "Registration success ", Toast.LENGTH_LONG).show()

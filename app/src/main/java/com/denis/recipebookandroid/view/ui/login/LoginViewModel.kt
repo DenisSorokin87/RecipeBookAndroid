@@ -13,8 +13,8 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
 //    private val _liveData = MutableLiveData<LoggedInUser>()
 //    val liveData: LiveData<LoggedInUser> = _liveData // another option to make MutableLiveData unchangeable to the user at the Activity/Fragment
 
-    private val _loginLiveData = MutableLiveData<LoadingState>()
-    val loginLiveData: LiveData<LoadingState> = _loginLiveData
+    private val _loginLiveData = MutableLiveData<LoadingState<LoggedInUser>>()
+    val loginLiveData: LiveData<LoadingState<LoggedInUser>> = _loginLiveData
 
     private val _loggedInLiveData = MutableLiveData<LoggedInUser>()
     val loggedInLiveData: LiveData<LoggedInUser> = _loggedInLiveData
@@ -36,12 +36,12 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
 
    fun makeLogIn(login: String, password: String){
 
-       _loginLiveData.value = LoadingState.LOADING
+       _loginLiveData.value = LoadingState.LOADING()
 
-       signInUpRepository.login(login, password, object : DataSourceCall{
-           override fun onSuccess(data: Any) {
+       signInUpRepository.login(login, password, object : DataSourceCall<LoggedInUser>{
+           override fun onSuccess(data: LoggedInUser) {
                _loginLiveData.value = LoadingState.LOADED(data)
-               _loggedInLiveData.value = data as LoggedInUser
+               _loggedInLiveData.value = data
            }
 
            override fun onError(error: String) {

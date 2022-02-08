@@ -53,7 +53,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
     private fun loginLiveDataObserve() {
         loginViewModel.loginLiveData.observe(requireActivity()) {
             when (it) {
-                LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
+                is LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progressBar.visibility = View.GONE
                     Toast.makeText(

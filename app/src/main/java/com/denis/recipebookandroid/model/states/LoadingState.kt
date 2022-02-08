@@ -1,9 +1,9 @@
 package com.denis.recipebookandroid.model.states
 
-sealed class LoadingState{
+sealed class LoadingState<out T: Any>{
 
-    object LOADING: LoadingState()
-    class LOADED(val data: Any) : LoadingState()
-    class Error(val error: String) : LoadingState()
+    class LOADING<out T: Any>: LoadingState<T>()
+    class LOADED<out T: Any>(val data: T) : LoadingState<T>()
+    class Error<out T: Any>(val error: String) : LoadingState<T>()
 
 }

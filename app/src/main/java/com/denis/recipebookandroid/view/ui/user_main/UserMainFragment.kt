@@ -46,7 +46,6 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
         userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory())[UserMainViewModel::class.java]
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
-
         loginViewModelObserve()
         recipeRecyclerInit(view)
         observeForLiveData()
@@ -73,16 +72,19 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
     }
 
     private fun signInBtnListener() {
-        signInBtn.setOnClickListener(View.OnClickListener {
+        signInBtn.setOnClickListener {
             (requireActivity() as MainActivity).showUpperFragment(LoginFragment::class.java)
             signInBtn.visibility = View.GONE
-        })
+        }
     }
 
     private fun recipeRecyclerInit(view: View) {
         recipesRecycler = view.findViewById(R.id.recipes_recycler)
         recipesRecycler.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         recipeRecyclerAdapter = RecipeRecyclerAdapter(requireActivity())
+        recipeRecyclerAdapter.onClick = {
+            println(it)
+        }
         recipesRecycler.adapter = recipeRecyclerAdapter
 
     }
@@ -90,10 +92,10 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
     private fun observeForLiveData() {
         userViewModel.userLiveData.observe(requireActivity()){
             when(it){
-                LoadingState.LOADING -> progress.visibility = View.VISIBLE
+                is LoadingState.LOADING -> progress.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progress.visibility = View.GONE
-                    setRecipeRecycler(it.data as ArrayList<Recipe>)
+                    setRecipeRecycler(it.data)
                 }
                 is LoadingState.Error -> {
                     progress.visibility = View.GONE

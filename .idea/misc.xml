@@ -9,12 +9,14 @@
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/menu/main_page_bottom_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Android/RecipeBookAndroid/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/RecipeBookAndroid/app/src/main/res/layout/fragment_registration.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/RecipeBookAndroid/app/src/main/res/layout/recipe__create__fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Android/RecipeBookAndroid/app/src/main/res/layout/recipe_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Android/RecipeBookAndroid/app/src/main/res/layout/user_main_fragment.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

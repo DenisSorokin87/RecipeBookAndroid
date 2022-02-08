@@ -11,7 +11,7 @@ class UserMainRepository {
 
     private val apiService = RetrofitInstance.getRetrofitInstance()
 
-    fun getAllRecipes(dataSource: DataSourceCall) {
+    fun getAllRecipes(dataSource: DataSourceCall<ArrayList<Recipe>>) {
         val getRecipesCall = apiService.getAllRecipes()
         getRecipesCall.enqueue(object : Callback<ArrayList<Recipe>>{
             override fun onResponse(call: Call<ArrayList<Recipe>>, response: Response<ArrayList<Recipe>>) {

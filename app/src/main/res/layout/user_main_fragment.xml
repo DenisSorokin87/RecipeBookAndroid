@@ -9,7 +9,6 @@
     android:background="@android:color/transparent">
 
 
-
     <Button
         android:id="@+id/sign_in_btn"
         android:layout_width="117dp"
