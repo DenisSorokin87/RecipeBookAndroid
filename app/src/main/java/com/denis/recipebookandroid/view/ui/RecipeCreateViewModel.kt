@@ -1,4 +1,4 @@
-package com.denis.recipebookandroid
+package com.denis.recipebookandroid.view.ui
 
 import androidx.lifecycle.ViewModel
 
