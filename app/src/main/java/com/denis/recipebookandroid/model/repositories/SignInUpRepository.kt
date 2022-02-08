@@ -2,8 +2,8 @@ package com.denis.recipebookandroid.model.repositories
 
 import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
-import com.denis.recipebookandroid.model.data.CallResult
-import com.denis.recipebookandroid.model.data.LoginResult
+import com.denis.recipebookandroid.model.states.CallResult
+import com.denis.recipebookandroid.model.states.LoginResult
 import com.denis.recipebookandroid.model.data.User
 import retrofit2.Call
 import retrofit2.Callback

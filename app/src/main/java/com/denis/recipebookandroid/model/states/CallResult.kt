@@ -1,4 +1,4 @@
-package com.denis.recipebookandroid.model.data
+package com.denis.recipebookandroid.model.states
 
 data class CallResult(
     val status: String,

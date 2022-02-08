@@ -21,30 +21,32 @@ class LoginFragment : Fragment(R.layout.fragment_login){
 //    private val loginViewModel by viewModels<MainViewModel>()
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var isLoggedIn: String
+    private lateinit var logInBtn: Button
+    private lateinit var loginText: EditText
+    private lateinit var passwordText: EditText
+    private lateinit var signUpBtn: Button
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("fragment Created")
-        val logInBtn: Button = view.findViewById(R.id.loginBtn)
-        val loginText: EditText = view.findViewById(R.id.user_login_name)
-        val passwordText: EditText = view.findViewById(R.id.user_password)
-        val signUpBtn: Button = view.findViewById(R.id.sign_up_btn)
-        val progressBar: ProgressBar = view.findViewById(R.id.loading)
 
-        logInBtn.setOnClickListener(View.OnClickListener {
-            loginViewModel.makeLogIn(loginText.text.toString(), passwordText.text.toString())
+        logInBtn = view.findViewById(R.id.loginBtn)
+        loginText = view.findViewById(R.id.user_login_name)
+        passwordText = view.findViewById(R.id.user_password)
+        signUpBtn = view.findViewById(R.id.sign_up_btn)
+        progressBar = view.findViewById(R.id.loading)
 
-        })
-
-
-        signUpBtn.setOnClickListener(View.OnClickListener {
-            (requireActivity() as MainActivity).showUpperFragment(RegistrationFragment::class.java)
-        })
-
+        logInBtnListener()
+        signUpBtnListener()
 
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
+        loginLiveDataObserve()
+
+    }
+
+    private fun loginLiveDataObserve() {
         loginViewModel.loginLiveData.observe(requireActivity()) {
             when (it) {
                 LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
@@ -68,5 +70,18 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                 }
             }
         }
+    }
+
+    private fun signUpBtnListener() {
+        signUpBtn.setOnClickListener(View.OnClickListener {
+            (requireActivity() as MainActivity).showUpperFragment(RegistrationFragment::class.java)
+        })
+    }
+
+    private fun logInBtnListener() {
+        logInBtn.setOnClickListener(View.OnClickListener {
+            loginViewModel.makeLogIn(loginText.text.toString(), passwordText.text.toString())
+
+        })
     }
 }

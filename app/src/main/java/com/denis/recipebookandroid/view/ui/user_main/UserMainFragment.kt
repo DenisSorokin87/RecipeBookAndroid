@@ -25,27 +25,30 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
     private lateinit var userViewModel: UserMainViewModel
     private lateinit var recipesRecycler: RecyclerView
     private lateinit var recipeRecyclerAdapter: RecipeRecyclerAdapter
-
+    private lateinit var signInBtn: Button
+    private lateinit var userNameTitle: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signInBtn: Button = view.findViewById(R.id.sign_in_btn)
-        val userNameTitle: TextView = view.findViewById(R.id.logged_id_user_name)
+        signInBtn = view.findViewById(R.id.sign_in_btn)
+        userNameTitle= view.findViewById(R.id.logged_id_user_name)
 
         userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory())[UserMainViewModel::class.java]
 
         recipeRecyclerInit(view)
+        observeForLiveData()
+        signInBtnListener()
 
+        userViewModel.getAllRecipes()
+
+    }
+
+    private fun signInBtnListener() {
         signInBtn.setOnClickListener(View.OnClickListener {
             (requireActivity() as MainActivity).showUpperFragment(LoginFragment::class.java)
             signInBtn.visibility = View.GONE
         })
-
-        observeForLiveData()
-
-        userViewModel.getAllRecipes()
-
     }
 
     private fun recipeRecyclerInit(view: View) {
