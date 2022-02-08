@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.denis.recipebookandroid.model.DataSourceCall
+import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.repositories.SignInUpRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 
@@ -15,6 +16,8 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
     private val _loginLiveData = MutableLiveData<LoadingState>()
     val loginLiveData: LiveData<LoadingState> = _loginLiveData
 
+    private val _loggedInLiveData = MutableLiveData<LoggedInUser>()
+    val loggedInLiveData: LiveData<LoggedInUser> = _loggedInLiveData
 
 
     init {
@@ -38,6 +41,7 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
        signInUpRepository.login(login, password, object : DataSourceCall{
            override fun onSuccess(data: Any) {
                _loginLiveData.value = LoadingState.LOADED(data)
+               _loggedInLiveData.value = data as LoggedInUser
            }
 
            override fun onError(error: String) {

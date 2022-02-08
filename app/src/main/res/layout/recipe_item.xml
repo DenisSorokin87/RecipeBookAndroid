@@ -23,7 +23,7 @@
 
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/add_button"
                     android:text="ADD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +60,21 @@
                 app:constraintSet="@drawable/recipe_default_image"
                 />
 
+            <TextView
+                android:id="@+id/dish_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/list_item_style"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_horizontal"
+                android:hint="Here will be a description of the dish that we are going to cook!!"
+                android:gravity="center"
+                android:textColorHint="@android:color/darker_gray"/>
             <TextView
                 android:id="@+id/ingredients_title"
                 android:layout_width="match_parent"

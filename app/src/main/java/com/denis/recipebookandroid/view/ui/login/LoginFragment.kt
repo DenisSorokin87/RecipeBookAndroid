@@ -1,7 +1,9 @@
 package com.denis.recipebookandroid.view.ui.login
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -10,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
+import com.denis.recipebookandroid.databinding.FragmentLoginBinding
+import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.BlankFragment
 import com.denis.recipebookandroid.view.ui.MainActivity
@@ -54,7 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                     progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
-                        "Login Made !!!!! + ${it.data}",
+                        "Login Made !!!!! + ${(it.data as LoggedInUser).displayName}",
                         Toast.LENGTH_LONG
                     ).show()
                     (requireActivity() as MainActivity).showBottomFragment(UserMainFragment::class.java)

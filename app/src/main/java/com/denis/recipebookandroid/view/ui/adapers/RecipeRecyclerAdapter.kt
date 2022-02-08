@@ -21,6 +21,7 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         holder.recipeTitle.text = recipeList[position].recipeTitle
         holder.dishType.text = recipeList[position].type
         holder.recipePic.setImageResource(R.drawable.recipe_default_image)
+        holder.dishDescription.text = recipeList[position].dishDescription
 
         //Setting Ingredients To ListView
         val strIngredientsList = ArrayAdapter<String>(
@@ -65,6 +66,7 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
 
         var recipeTitle: TextView = itemView.findViewById(R.id.recipe_title)
         var dishType: TextView = itemView.findViewById(R.id.dish_type)
+        var dishDescription: TextView = itemView.findViewById(R.id.dish_description)
         var recipePic: ImageView = itemView.findViewById(R.id.recipe_picture)
         var ingredientsList: ListView = itemView.findViewById(R.id.ingredients_list)
         var processList: ListView = itemView.findViewById(R.id.cooking_process_list)

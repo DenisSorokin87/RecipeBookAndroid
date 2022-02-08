@@ -18,7 +18,7 @@ class SignInUpRepository() {
            override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
                response.body()?.let {
                 when(it.status){
-                    "SUCCESS" -> dataSourceCall.onSuccess(it.loggedInUser.displayName)
+                    "SUCCESS" -> dataSourceCall.onSuccess(it.loggedInUser)
                     "FAILED" -> dataSourceCall.onError(it.error)
                 }
                }

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainer
 import com.denis.recipebookandroid.R
+import com.denis.recipebookandroid.databinding.ActivityMainBinding
 import com.denis.recipebookandroid.view.ui.favorites.FavoriteFragment
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
 import com.denis.recipebookandroid.view.ui.search.SearchFragment
@@ -16,10 +17,15 @@ import com.google.android.material.navigation.NavigationBarView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNav: BottomNavigationView
+//    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+
 
         bottomNav = findViewById(R.id.bottomNavigationView)
 
