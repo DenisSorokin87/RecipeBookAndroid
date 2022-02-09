@@ -54,8 +54,8 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
                 is LoadingState.LOADING -> progressBar.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progressBar.visibility = View.GONE
-                    Toast.makeText(requireActivity(), "Registration success ", Toast.LENGTH_LONG).show()
-                    (requireActivity() as MainActivity).showUpperFragment(BlankFragment::class.java)
+                    Toast.makeText(requireActivity(), it.data, Toast.LENGTH_LONG).show()
+                    (requireActivity() as MainActivity).showUpperFragment(LoginFragment::class.java)
                 }
                 is LoadingState.Error -> {
                     progressBar.visibility = View.GONE

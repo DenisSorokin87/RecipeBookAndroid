@@ -9,10 +9,11 @@ data class Recipe(
     val recipeTitle: String,
     @SerializedName("dishPhotoUrl")
     val recipePicUrl: String,
+    @SerializedName("description")
     val dishDescription: String,
     @SerializedName("productsList")
     val ingredientList: List<Ingredient>,
-    @SerializedName("processesList")
+    @SerializedName("cookingProcessList")
     val processList: List<CookingProcess>,
     val type: String
 )

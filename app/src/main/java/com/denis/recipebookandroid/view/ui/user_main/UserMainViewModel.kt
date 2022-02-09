@@ -10,14 +10,14 @@ import com.denis.recipebookandroid.model.repositories.UserMainRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 
 class UserMainViewModel(private val userMainRepository: UserMainRepository) : ViewModel() {
-    private val _userLiveData = MutableLiveData<LoadingState<ArrayList<Recipe>>>()
-    val userLiveData: LiveData<LoadingState<ArrayList<Recipe>>> = _userLiveData
+    private val _userLiveData = MutableLiveData<LoadingState<List<Recipe>>>()
+    val userLiveData: LiveData<LoadingState<List<Recipe>>> = _userLiveData
 
     fun getAllRecipes(){
         _userLiveData.value = LoadingState.LOADING()
 
-        userMainRepository.getAllRecipes(object : DataSourceCall<ArrayList<Recipe>>{
-            override fun onSuccess(data: ArrayList<Recipe>) {
+        userMainRepository.getAllRecipes(object : DataSourceCall<List<Recipe>>{
+            override fun onSuccess(data: List<Recipe>) {
                 _userLiveData.value = LoadingState.LOADED(data)
             }
 

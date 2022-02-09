@@ -4,5 +4,7 @@ enum class IngredientAmountUnit{
     GRAM,
     MILLILITER,
     CUPS,
-    SPOONS
+    SPOONS,
+    KG,
+    PIECE
 }

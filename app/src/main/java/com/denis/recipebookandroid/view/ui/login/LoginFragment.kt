@@ -58,7 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                     progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
-                        "Login Made !!!!! + ${(it.data as LoggedInUser).displayName}",
+                        "Login Made !!!!! + ${it.data.displayName}",
                         Toast.LENGTH_LONG
                     ).show()
                     (requireActivity() as MainActivity).showBottomFragment(UserMainFragment::class.java)
@@ -68,7 +68,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                     progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
-                        "Error.... Fuck You " + it.error,
+                        "Error...." + it.error,
                         Toast.LENGTH_LONG
                     ).show()
                 }

@@ -4,7 +4,6 @@ import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
 import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.states.CallResult
-import com.denis.recipebookandroid.model.states.LoginResult
 import com.denis.recipebookandroid.model.data.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,36 +14,36 @@ class SignInUpRepository() {
 
     fun login(loginName: String, password: String, dataSourceCall: DataSourceCall<LoggedInUser>) {
        val signInCall = loginService.makeLogIn(loginName, password)
-       signInCall.enqueue(object : Callback<LoginResult> {
-           override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
+       signInCall.enqueue(object : Callback<CallResult<LoggedInUser>> {
+           override fun onResponse(call: Call<CallResult<LoggedInUser>>, response: Response<CallResult<LoggedInUser>>) {
                response.body()?.let {
                 when(it.status){
-                    "SUCCESS" -> dataSourceCall.onSuccess(it.loggedInUser)
-                    "FAILED" -> dataSourceCall.onError(it.error)
+                    "SUCCESS" -> dataSourceCall.onSuccess(it.data?.last())
+                    "FAILED" -> dataSourceCall.onError(it.msg)
                 }
                }
            }
-           override fun onFailure(call: Call<LoginResult>, t: Throwable) {
+           override fun onFailure(call: Call<CallResult<LoggedInUser>>, t: Throwable) {
                t.message?.let { dataSourceCall.onError(it) }
            }
        })
     }
 
-    fun createNewUser(user: User, dataSourceCall: DataSourceCall<CallResult>){
+    fun createNewUser(user: User, dataSourceCall: DataSourceCall<String>){
         val signUpCall = loginService.createNewUser(user)
-        signUpCall.enqueue(object : Callback<CallResult>{
-                override fun onResponse(call: Call<CallResult>, response: Response<CallResult>) {
+        signUpCall.enqueue(object : Callback<CallResult<Nothing>>{
+                override fun onResponse(call: Call<CallResult<Nothing>>, response: Response<CallResult<Nothing>>) {
                     response.body()?.let {
                         when(it.status){
                             "SUCCESS"-> {
-                                dataSourceCall.onSuccess(response.body()!!)
+                                dataSourceCall.onSuccess(it.status)
                             }
-                            "FAILED" -> dataSourceCall.onError("user creating failed")
+                            "FAILED" -> dataSourceCall.onError("${it.status} - ${it.msg}")
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<CallResult>, t: Throwable) {
+                override fun onFailure(call: Call<CallResult<Nothing>>, t: Throwable) {
                     println("Failure + ${t.message}")
                     println(t.cause)
                 }

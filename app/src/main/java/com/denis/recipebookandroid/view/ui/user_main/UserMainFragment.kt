@@ -95,7 +95,7 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
                 is LoadingState.LOADING -> progress.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progress.visibility = View.GONE
-                    setRecipeRecycler(it.data)
+                    setRecipeRecycler(it.data as ArrayList<Recipe>)
                 }
                 is LoadingState.Error -> {
                     progress.visibility = View.GONE

@@ -26,7 +26,7 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         holder.dishDescription.text = recipeList[position].dishDescription
 
         //Setting Ingredients To ListView
-        val strIngredientsList = ArrayAdapter<String>(
+        val strIngredientsList = ArrayAdapter(
             context, R.layout.list_view_text_style, getIngredients(recipeList[position])
         )
         holder.ingredientsList.adapter = strIngredientsList
@@ -35,8 +35,9 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
             onClick?.invoke(getIngredients(recipeList[position]))
         }
 
+
         //Setting Processes ToListView
-        val strProcessList = ArrayAdapter<String>(
+        val strProcessList = ArrayAdapter(
             context, R.layout.list_view_text_style, getProcesses(recipeList[position])
         )
         holder.processList.adapter = strProcessList
