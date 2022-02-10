@@ -68,7 +68,7 @@ class LoginFragment : Fragment(R.layout.fragment_login){
                     progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
-                        "Error...." + it.error,
+                        "Error.... " + it.error,
                         Toast.LENGTH_LONG
                     ).show()
                 }
