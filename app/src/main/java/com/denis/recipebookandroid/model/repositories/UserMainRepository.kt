@@ -17,7 +17,7 @@ class UserMainRepository {
         getRecipesCall.enqueue(object : Callback<CallResult<Recipe>>{
             override fun onResponse(call: Call<CallResult<Recipe>>, response: Response<CallResult<Recipe>>) {
                 response.body()?.let {
-                    it.data?.let { it1 -> dataSource.onSuccess(it1) }
+                    it.data?.let { recipesList -> dataSource.onSuccess(recipesList) }
                 }
             }
 

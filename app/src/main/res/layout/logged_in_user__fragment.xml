@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoggedInUser_Fragment"
+    tools:context=".view.ui.logged_in_user.LoggedInUserFragment"
     android:background="@android:color/transparent">
 
     <TextView
@@ -55,8 +55,9 @@
         app:layout_constraintTop_toBottomOf="@+id/logged_in_user_name" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/sort_button"
+        android:layout_width="91dp"
+        android:layout_height="39dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/login_button_style"
         android:text="Sort"
@@ -64,6 +65,42 @@
         app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toEndOf="@+id/sort_by"
         app:layout_constraintTop_toBottomOf="@+id/logged_in_user_name" />
+
+    <EditText
+        android:id="@+id/recipe_search"
+        android:layout_width="236dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:hint="Type Recipe Name For Search"
+        android:textSize="15sp"
+        android:textColorHint="@color/cardview_dark_background"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/recipe_search_btn"
+        android:layout_width="91dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/login_button_style"
+        android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sort_button" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipes_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_search"
+        tools:listitem="@layout/recipe_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

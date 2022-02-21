@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNav: BottomNavigationView
 //    private lateinit var binding: ActivityMainBinding
+    private var timer: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,5 +77,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onStop() {
+        super.onStop()
 
+    }
 }
