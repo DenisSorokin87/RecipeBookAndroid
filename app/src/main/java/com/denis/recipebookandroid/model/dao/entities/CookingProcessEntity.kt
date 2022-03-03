@@ -8,5 +8,6 @@ data class CookingProcessEntity(
     @PrimaryKey
     val processId: Int,
     val processNumber: Int,
-    val description: String
+    val description: String,
+    val recipeId: Int
 )

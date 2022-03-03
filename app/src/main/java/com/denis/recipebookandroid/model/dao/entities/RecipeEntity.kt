@@ -19,7 +19,7 @@ data class RecipeEntity(
     val dishDescription: String,
     @SerializedName("productsList")
     val ingredientList: List<Ingredient>,
-    @SerializedName("cookingProcessList")
-    val processList: List<CookingProcess>,
+//    @SerializedName("cookingProcessList")
+//    val processList: List<CookingProcess>,
     val type: String
 )
