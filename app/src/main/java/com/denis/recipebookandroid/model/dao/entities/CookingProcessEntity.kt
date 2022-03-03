@@ -9,5 +9,4 @@ data class CookingProcessEntity(
     val processId: Int,
     val processNumber: Int,
     val description: String,
-    val recipeId: Int
 )

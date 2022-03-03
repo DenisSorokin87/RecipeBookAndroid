@@ -43,7 +43,7 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
         userNameTitle= view.findViewById(R.id.logged_id_user_name)
         progress = view.findViewById(R.id.loading)
 
-        userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory())[UserMainViewModel::class.java]
+        userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory(requireActivity().application))[UserMainViewModel::class.java]
         loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
         loginViewModelObserve()
