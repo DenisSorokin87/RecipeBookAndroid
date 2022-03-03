@@ -28,6 +28,7 @@ class UserMainViewModel(private val userMainRepository: UserMainRepository) : Vi
     }
 
     fun getRecipesFromLocalDB() {
-        _userLiveData.value = LoadingState.LOADED(userMainRepository.getRecipesFromDB())
+        if (userMainRepository.getRecipesFromDB().isNullOrEmpty()) _userLiveData.value = LoadingState.Error("There is no data stored in Data Base")
+        else _userLiveData.value = LoadingState.LOADED(userMainRepository.getRecipesFromDB())
     }
 }

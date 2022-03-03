@@ -55,7 +55,9 @@ class UserMainRepository(private val context: Context) {
     }
 
     private fun getDataFromDB(): List<Recipe> {
-        return Gson().fromJson(Gson().toJson(recipeDao.getAll()), Array<Recipe>::class.java).toList()
+
+        return if (recipeDao.getAll().isNotEmpty()) Gson().fromJson(Gson().toJson(recipeDao.getAll()), Array<Recipe>::class.java).toList()
+        else return emptyList()
     }
 
 
