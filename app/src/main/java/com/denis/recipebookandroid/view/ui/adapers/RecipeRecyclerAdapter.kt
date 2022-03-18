@@ -1,13 +1,13 @@
 package com.denis.recipebookandroid.view.ui.adapers
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.denis.recipebookandroid.R
+import com.denis.recipebookandroid.model.data.Ingredient
 import com.denis.recipebookandroid.model.data.Recipe
 
 class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> = emptyList()): RecyclerView.Adapter<RecipeRecyclerAdapter.UserViewHolder>()  {
@@ -35,6 +35,8 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
             onClick?.invoke(getIngredients(recipeList[position]))
         }
 
+        holder.ingredientTextList.text = makeStrList(recipeList[position].ingredientList)
+
 
         //Setting Processes ToListView
         val strProcessList = ArrayAdapter(
@@ -42,6 +44,16 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         )
         holder.processList.adapter = strProcessList
 
+    }
+
+    private fun makeStrList(ingredientList: List<Ingredient>): String {
+        var strList: String = ""
+        ingredientList.forEach {
+            strList += "${it.toString()}\n"
+        }
+
+
+        return strList
     }
 
     private fun getProcesses(recipe: Recipe): ArrayList<String> {
@@ -76,6 +88,7 @@ class RecipeRecyclerAdapter(var context: Context, var recipeList: List<Recipe> =
         var recipePic: ImageView = itemView.findViewById(R.id.recipe_picture)
         var ingredientsList: ListView = itemView.findViewById(R.id.ingredients_list)
         var processList: ListView = itemView.findViewById(R.id.cooking_process_list)
+        var ingredientTextList: TextView = itemView.findViewById(R.id.ingredientTextList)
 
     }
 

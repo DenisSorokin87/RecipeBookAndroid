@@ -1,11 +1,9 @@
 package com.denis.recipebookandroid.model.repositories
 
 import android.content.Context
-import androidx.room.TypeConverter
 import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
 import com.denis.recipebookandroid.model.dao.DBInstances.RecipeDBInstance
-import com.denis.recipebookandroid.model.dao.entities.IngredientEntity
 import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
 import com.denis.recipebookandroid.model.dao.entity_dao.RecipeEntityDao
 import com.denis.recipebookandroid.model.data.Recipe
@@ -22,17 +20,17 @@ class UserMainRepository(private val context: Context) {
     private val recipeDao: RecipeEntityDao = recipeDataBase.getRecipeEntityDao()
 
     fun getAllRecipes(dataSource: DataSourceCall<List<Recipe>>) {
-
+            println("Repository getAllRecipeces function called")
         val getRecipesCall = apiService.getAllRecipes()
 
         getRecipesCall.enqueue(object : Callback<CallResult<RecipeEntity>>{
             override fun onResponse(call: Call<CallResult<RecipeEntity>>, response: Response<CallResult<RecipeEntity>>) {
-
+                println(response.body())
                 response.body()?.let {
 
-                    insertDataToDB(context, it.dataList)
+                    insertDataToDB(context, it.data)
 
-                    it.dataList?.let { dataSource.onSuccess(getDataFromDB()) }
+                    it.data?.let { dataSource.onSuccess(getDataFromDB()) }
                 }
             }
             override fun onFailure(call: Call<CallResult<RecipeEntity>>, t: Throwable) {

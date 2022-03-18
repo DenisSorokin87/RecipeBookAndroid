@@ -14,6 +14,7 @@ import com.denis.recipebookandroid.databinding.RecipeCreateFragmentBinding
 import com.denis.recipebookandroid.model.data.CookingProcess
 import com.denis.recipebookandroid.model.data.Ingredient
 import com.denis.recipebookandroid.model.data.IngredientAmountUnit
+import com.google.android.material.datepicker.OnSelectionChangedListener
 
 class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
@@ -90,7 +91,9 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
     private fun addIngredientBtnListener() {
         binding.addIngredientBtn.setOnClickListener {
-            ingredientList.add(Ingredient(binding.ingredient.text.toString(), Integer.valueOf(binding.ingredientAmount.text.toString()), binding.ingredientUnits.adapter)
+            val spinnerPosition = binding.ingredientUnits.selectedItemPosition
+            val spinnerItem = getIngredientAmountUnitsArray()[spinnerPosition]
+            ingredientList.add(Ingredient(binding.ingredient.text.toString(), Integer.valueOf(binding.ingredientAmount.text.toString()), spinnerItem))
             val processString = cookingProcessesList.last().toString() + "\n"
             binding.processesList.text = processString
         }
