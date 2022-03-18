@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="type"
                 android:layout_marginTop="5dp"
-                tools:listitem="@layout/dish_type_item"
+                tools:listitem="@layout/spinner_item"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/recipe_name"
                 app:layout_constraintTop_toBottomOf="@+id/title_text" />
@@ -120,7 +120,7 @@
                 android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ingredients_title"
-                tools:listitem="@layout/ingredient_unit_item" />
+                tools:listitem="@layout/spinner_item" />
 
             <Button
                 android:id="@+id/add_ingredient_btn"
@@ -138,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/black"
                 android:background="@drawable/list_item_style"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

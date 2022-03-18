@@ -18,6 +18,7 @@ import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.adapers.RecipeRecyclerAdapter
+import com.denis.recipebookandroid.view.ui.create_recipe.RecipeCreateFragment
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
 import com.denis.recipebookandroid.view.ui.login.LoginViewModel
 import com.denis.recipebookandroid.view.ui.login.LoginViewModelFactory
@@ -73,7 +74,7 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
 
     private fun signInBtnListener() {
         signInBtn.setOnClickListener {
-            (requireActivity() as MainActivity).showUpperFragment(LoginFragment::class.java)
+            (requireActivity() as MainActivity).showUpperFragment(RecipeCreateFragment::class.java)
             signInBtn.visibility = View.GONE
         }
     }
