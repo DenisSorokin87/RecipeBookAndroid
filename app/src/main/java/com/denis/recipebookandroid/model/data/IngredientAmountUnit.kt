@@ -6,5 +6,14 @@ enum class IngredientAmountUnit{
     CUPS,
     SPOONS,
     KG,
-    PIECE
+    PIECE;
+
+    fun getStrArray(): ArrayList<String> {
+        val strArray: ArrayList<String> = ArrayList()
+        values().forEach{
+            strArray.add(it.toString())
+        }
+        return strArray
+    }
+
 }
