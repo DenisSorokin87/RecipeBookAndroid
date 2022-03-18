@@ -9,26 +9,27 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/upper_fragment_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:name="com.denis.recipebookandroid.view.ui.BlankFragment"
-        tools:layout="@layout/fragment_blank"
+        tools:layout="@layout/fragment_login"
         />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottom_fragment_container"
         android:name="com.denis.recipebookandroid.view.ui.user_main.UserMainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upper_fragment_container"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         tools:layout="@layout/user_main_fragment" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
