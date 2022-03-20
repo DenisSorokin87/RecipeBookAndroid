@@ -12,6 +12,8 @@ class RecipeCreateViewModel(private val recipeCreateRepository: RecipeCreateRepo
 
     private val _recipeLiveData = MutableLiveData<LoadingState<List<Recipe>>>()
     val recipeLiveData: LiveData<LoadingState<List<Recipe>>> = _recipeLiveData
+    private val _dataLiveData = MutableLiveData<String>()
+    val dataLiveData:LiveData<String> = _dataLiveData
 
     fun createNewRecipe(recipe: Recipe){
 
@@ -19,14 +21,16 @@ class RecipeCreateViewModel(private val recipeCreateRepository: RecipeCreateRepo
 
         recipeCreateRepository.createNewRecipe(recipe, object : DataSourceCall<List<Recipe>>{
             override fun onSuccess(data: List<Recipe>) {
-                TODO("Not yet implemented")
+               println("success")
             }
 
             override fun onError(error: String) {
-                TODO("Not yet implemented")
+                println("Error")
             }
-
         })
+    }
 
+    fun initSpinner(dataArray: ArrayList<String>){
+        TODO()
     }
 }

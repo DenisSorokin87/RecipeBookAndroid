@@ -7,15 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.databinding.RecipeCreateFragmentBinding
 import com.denis.recipebookandroid.model.data.CookingProcess
 import com.denis.recipebookandroid.model.data.Ingredient
 import com.denis.recipebookandroid.model.data.IngredientAmountUnit
+import com.denis.recipebookandroid.model.data.Recipe
+import com.denis.recipebookandroid.model.states.LoadingState
 
 class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
-    private lateinit var viewModel: RecipeCreateViewModel
+    private lateinit var recipeViewModel: RecipeCreateViewModel
 
     private val cookingProcessesList: ArrayList<CookingProcess> = ArrayList()
     private val ingredientList: ArrayList<Ingredient> = ArrayList()
@@ -41,35 +44,53 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
         ingredientListAdapter = ArrayAdapter(requireContext(), R.layout.list_view_text_style, ingredientList)
 
-        viewModel = ViewModelProvider(requireActivity(), RecipeCreateViewModelFactory(requireActivity().application))[RecipeCreateViewModel::class.java]
-//
-//        viewModelObserve()
-//
+        val dishTypeAdapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(requireContext(), R.array.dishType, android.R.layout.simple_spinner_item).
+            also {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.dishTypeSpinner.adapter = it
+            }
+
+        recipeViewModel = ViewModelProvider(requireActivity(), RecipeCreateViewModelFactory(requireActivity().application))[RecipeCreateViewModel::class.java]
+
+        viewModelObserve()
+
         addIngredientBtnListener()
-//        addCookingProcessBtnListener()
-//        submitBtnListener()
+        addCookingProcessBtnListener()
+        submitBtnListener()
 
     }
 
-    private fun getIngredientAmountUnitsArray(): List<String> {
-        val strArray: ArrayList<String> = ArrayList()
-        strArray.add(0, "Units")
-        IngredientAmountUnit.values().forEach{
-            strArray.add(it.toString())
-        }
-        return strArray
-    }
 
 
     private fun viewModelObserve() {
-        TODO("Not yet implemented")
+        recipeViewModel.recipeLiveData.observe(requireActivity()){
+            when(it){
+                is LoadingState.LOADING -> binding.loading.visibility = View.VISIBLE
+                is LoadingState.LOADED -> {
+                    binding.loading.visibility = View.GONE
+//                    setRecipeRecycler(it.data as ArrayList<Recipe>)
+                }
+                is LoadingState.Error -> {
+                    binding.loading.visibility = View.GONE
+                    Toast.makeText(
+                        requireActivity(),
+                        it.error,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
-
     private fun addCookingProcessBtnListener() {
+        var processString: String? = null
        binding.addProcessBtn.setOnClickListener {
            cookingProcessesList.add(CookingProcess(cookingProcessesList.size+1, binding.cookingProcessDescribe.text.toString()))
-           val processString = cookingProcessesList.last().toString() + "\n"
+           processString = if(processString == null){
+               cookingProcessesList.last().toString()
+           } else{
+               processString + "\n" + cookingProcessesList.last().toString()
+           }
            binding.processesList.text = processString
        }
     }
@@ -87,9 +108,24 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
     }
 
     private fun submitBtnListener() {
-        TODO("Not yet implemented")
+
+        binding.commitBtn.setOnClickListener {
+            recipeViewModel.createNewRecipe(Recipe(binding.recipeName.text.toString(),
+                "DishImageUrl",
+                binding.dishDescription.text.toString(),
+                ingredientList, cookingProcessesList, binding.dishTypeSpinner.selectedItem.toString()))
+        }
+
     }
 
+    private fun getIngredientAmountUnitsArray(): List<String> {
+        val strArray: ArrayList<String> = ArrayList()
+        strArray.add(0, "Units")
+        IngredientAmountUnit.values().forEach{
+            strArray.add(it.toString())
+        }
+        return strArray
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

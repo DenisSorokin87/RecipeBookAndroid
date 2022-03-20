@@ -26,6 +26,7 @@
     <string name="add">Add</string>
     <string name="commit">Commit</string>
     <string-array name="dishType">
+        <item>Dish Type</item>
         <item>Bakery</item>
         <item>Salades</item>
         <item>Grill</item>

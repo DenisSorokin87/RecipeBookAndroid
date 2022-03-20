@@ -7,6 +7,6 @@ import com.denis.recipebookandroid.model.states.CallResult
 
 class RecipeCreateRepository(applicationContext: Context) {
     fun createNewRecipe(recipe: Recipe, callResult: DataSourceCall<List<Recipe>>) {
-        TODO("Not yet implemented")
+        println(recipe.toString())
     }
 }
