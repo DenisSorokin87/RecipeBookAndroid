@@ -1,5 +1,7 @@
 package com.denis.recipebookandroid.model.states
 
+import com.denis.recipebookandroid.model.data.Recipe
+
 sealed class LoadingState<out T: Any>{
 
     class LOADING<out T: Any>: LoadingState<T>()

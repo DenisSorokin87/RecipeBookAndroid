@@ -2,7 +2,7 @@ package com.denis.recipebookandroid.model.repositories
 
 import android.content.Context
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
-import com.denis.recipebookandroid.model.dao.dbInstances.RecipeDBInstance
+import com.denis.recipebookandroid.model.dao.db_instances.RecipeDBInstance
 import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
 import com.denis.recipebookandroid.model.dao.entity_dao.RecipeEntityDao
 import com.denis.recipebookandroid.model.data.Recipe
@@ -17,16 +17,18 @@ class UserMainRepository(private val context: Context) {
 
     suspend fun getAllRecipes(): CallResult<Recipe> {
 
-        try {
+        return try {
             val result = apiService.getAllRecipes()
-            if (result.dataList.isNullOrEmpty() || result.status == "ERROR") {
-                return CallResult(emptyList(), result.status, result.msg)
-            }
+            if (result.dataList.isNullOrEmpty()) return CallResult(
+                emptyList(),
+                status = "FAILED",
+                result.msg
+            )
+
             insertDataToDB(context, result.dataList)
             return CallResult(getRecipesFromDB(), result.status, result.msg)
-
         } catch (e: Exception) {
-            return CallResult(emptyList(), "ERROR", e.message!!)
+            CallResult(emptyList(), "FAILED", e.message!!)
         }
     }
 

@@ -96,7 +96,7 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
                 is LoadingState.LOADING -> progress.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
                     progress.visibility = View.GONE
-                    setRecipeRecycler(it.data as ArrayList<Recipe>)
+                    setRecipeRecycler(it.data)
                 }
                 is LoadingState.Error -> {
                     progress.visibility = View.GONE
@@ -111,7 +111,7 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setRecipeRecycler(recipesList: ArrayList<Recipe>){
+    fun setRecipeRecycler(recipesList: List<Recipe>){
         recipeRecyclerAdapter.recipeList = recipesList
         recipeRecyclerAdapter.notifyDataSetChanged()
     }

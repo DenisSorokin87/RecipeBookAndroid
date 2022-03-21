@@ -1,4 +1,4 @@
-package com.denis.recipebookandroid.model.dao.dbInstances
+package com.denis.recipebookandroid.model.dao.db_instances
 
 import android.content.Context
 import androidx.room.Room
