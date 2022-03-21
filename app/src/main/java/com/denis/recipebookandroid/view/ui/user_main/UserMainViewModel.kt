@@ -20,8 +20,11 @@ class UserMainViewModel(private val userMainRepository: UserMainRepository) : Vi
         viewModelScope.launch(Dispatchers.IO) {
 
             val result = userMainRepository.getAllRecipes()
-            if (result.isEmpty()) return@launch
-            _userLiveData.postValue(LoadingState.LOADED(result))
+            if (result.dataList.isNullOrEmpty()) {
+                getRecipesFromLocalDB()
+                return@launch
+            }
+            _userLiveData.postValue(LoadingState.LOADED(result.dataList))
 
 //            userMainRepository.getAllRecipes(object : DataSourceCall<List<Recipe>> {
 //
@@ -38,9 +41,10 @@ class UserMainViewModel(private val userMainRepository: UserMainRepository) : Vi
 
     }
 
-    fun getRecipesFromLocalDB() {
-        if (userMainRepository.getRecipesFromDB().isNullOrEmpty()) _userLiveData.value =
-            LoadingState.Error("There is no data stored in Data Base")
-        else _userLiveData.value = LoadingState.LOADED(userMainRepository.getRecipesFromDB())
+    private fun getRecipesFromLocalDB(){
+        viewModelScope.launch(Dispatchers.IO) {
+            if (userMainRepository.getRecipesFromDB().isNullOrEmpty()) _userLiveData.postValue( LoadingState.Error("There is no data stored in Data Base"))
+            else _userLiveData.postValue(LoadingState.LOADED(userMainRepository.getRecipesFromDB()))
+        }
     }
 }

@@ -1,17 +1,13 @@
 package com.denis.recipebookandroid.model.repositories
 
 import android.content.Context
-import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
-import com.denis.recipebookandroid.model.dao.DBInstances.RecipeDBInstance
+import com.denis.recipebookandroid.model.dao.dbInstances.RecipeDBInstance
 import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
 import com.denis.recipebookandroid.model.dao.entity_dao.RecipeEntityDao
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.CallResult
 import com.google.gson.Gson
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UserMainRepository(private val context: Context) {
 
@@ -19,57 +15,42 @@ class UserMainRepository(private val context: Context) {
     private val recipeDataBase = RecipeDBInstance(context).getRecipeDataBase()
     private val recipeDao: RecipeEntityDao = recipeDataBase.getRecipeEntityDao()
 
-    suspend fun getAllRecipes(): List<Recipe> {
-        val result = apiService.getAllRecipes()
-        insertDataToDB(context, result.dataList)
-        return getDataFromDB()
+    suspend fun getAllRecipes(): CallResult<Recipe> {
 
+        try {
+            val result = apiService.getAllRecipes()
+            if (result.dataList.isNullOrEmpty() || result.status == "ERROR") {
+                return CallResult(emptyList(), result.status, result.msg)
+            }
+            insertDataToDB(context, result.dataList)
+            return CallResult(getRecipesFromDB(), result.status, result.msg)
 
-
-//        getRecipesCall.enqueue(object : Callback<CallResult<RecipeEntity>>{
-//            override fun onResponse(call: Call<CallResult<RecipeEntity>>, response: Response<CallResult<RecipeEntity>>) {
-//                println(response.body())
-//                response.body()?.let {
-//                    insertDataToDB(context, it.data)
-//
-//                    it.data?.let { dataSource.onSuccess(getDataFromDB()) }
-//                }
-//            }
-//            override fun onFailure(call: Call<CallResult<RecipeEntity>>, t: Throwable) {
-//                dataSource.onError("Connection Problems")
-//            }
-//
-//        })
+        } catch (e: Exception) {
+            return CallResult(emptyList(), "ERROR", e.message!!)
+        }
     }
 
     fun getRecipesFromDB(): List<Recipe> {
-        return getDataFromDB()
-    }
 
-
-
-
-    fun addRecipeToUser(recipeId: Int, userId: Int){
-
-
-    }
-
-    private fun getDataFromDB(): List<Recipe> {
-
-        return if (recipeDao.getAll().isNotEmpty()) Gson().fromJson(Gson().toJson(recipeDao.getAll()), Array<Recipe>::class.java).toList()
+        return if (recipeDao.getAll()
+                .isNotEmpty()
+        ) Gson().fromJson(Gson().toJson(recipeDao.getAll()), Array<Recipe>::class.java).toList()
         else return emptyList()
     }
 
 
-    private fun insertDataToDB(context: Context, data: List<RecipeEntity>?) {
+    fun addRecipeToUser(recipeId: Int, userId: Int) {
 
+
+    }
+
+
+    private fun insertDataToDB(context: Context, data: List<RecipeEntity>?) {
         recipeDao.cleanSchema()
         data?.forEach { recipeEntity ->
             recipeDao.insert(recipeEntity)
         }
     }
-
-
 
 
 }
