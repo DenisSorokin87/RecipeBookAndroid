@@ -19,25 +19,27 @@ class UserMainRepository(private val context: Context) {
     private val recipeDataBase = RecipeDBInstance(context).getRecipeDataBase()
     private val recipeDao: RecipeEntityDao = recipeDataBase.getRecipeEntityDao()
 
-    fun getAllRecipes(dataSource: DataSourceCall<List<Recipe>>) {
-            println("Repository getAllRecipeces function called")
-        val getRecipesCall = apiService.getAllRecipes()
+    suspend fun getAllRecipes(): List<Recipe> {
+        val result = apiService.getAllRecipes()
+        insertDataToDB(context, result.dataList)
+        return getDataFromDB()
 
-        getRecipesCall.enqueue(object : Callback<CallResult<RecipeEntity>>{
-            override fun onResponse(call: Call<CallResult<RecipeEntity>>, response: Response<CallResult<RecipeEntity>>) {
-                println(response.body())
-                response.body()?.let {
 
-                    insertDataToDB(context, it.data)
 
-                    it.data?.let { dataSource.onSuccess(getDataFromDB()) }
-                }
-            }
-            override fun onFailure(call: Call<CallResult<RecipeEntity>>, t: Throwable) {
-                dataSource.onError("Connection Problems")
-            }
-
-        })
+//        getRecipesCall.enqueue(object : Callback<CallResult<RecipeEntity>>{
+//            override fun onResponse(call: Call<CallResult<RecipeEntity>>, response: Response<CallResult<RecipeEntity>>) {
+//                println(response.body())
+//                response.body()?.let {
+//                    insertDataToDB(context, it.data)
+//
+//                    it.data?.let { dataSource.onSuccess(getDataFromDB()) }
+//                }
+//            }
+//            override fun onFailure(call: Call<CallResult<RecipeEntity>>, t: Throwable) {
+//                dataSource.onError("Connection Problems")
+//            }
+//
+//        })
     }
 
     fun getRecipesFromDB(): List<Recipe> {

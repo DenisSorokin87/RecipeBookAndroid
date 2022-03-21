@@ -9,6 +9,6 @@ import retrofit2.Call
 interface ApiService {
 
     @GET("/RecipeBook-1.0/rest/recipe")
-    fun getAllRecipes(): Call<CallResult<RecipeEntity>>
+    suspend fun getAllRecipes(): CallResult<RecipeEntity>
 
 }
