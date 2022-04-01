@@ -9,13 +9,13 @@ import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.CallResult
 import com.google.gson.Gson
 
-class UserMainRepository(private val context: Context) {
+class UserMainRepository(private val context: Context): IUserMainRepository {
 
     private val apiService = RetrofitInstance.getRetrofitInstance()
     private val recipeDataBase = RecipeDBInstance(context).getRecipeDataBase()
     private val recipeDao: RecipeEntityDao = recipeDataBase.getRecipeEntityDao()
 
-    suspend fun getAllRecipes(): CallResult<Recipe> {
+    override suspend fun getAllRecipes(): CallResult<Recipe> {
 
         return try {
             val result = apiService.getAllRecipes()
@@ -32,7 +32,7 @@ class UserMainRepository(private val context: Context) {
         }
     }
 
-    fun getRecipesFromDB(): List<Recipe> {
+    override suspend fun getRecipesFromDB(): List<Recipe> {
 
         return if (recipeDao.getAll()
                 .isNotEmpty()
@@ -41,16 +41,16 @@ class UserMainRepository(private val context: Context) {
     }
 
 
-    fun addRecipeToUser(recipeId: Int, userId: Int) {
+    override fun addRecipeToUser(recipeId: Int, userId: Int) {
 
 
     }
 
 
-    private fun insertDataToDB(context: Context, data: List<RecipeEntity>?) {
+    override suspend fun insertDataToDB(context: Context, data: List<RecipeEntity>?) {
         recipeDao.cleanSchema()
-        data?.forEach { recipeEntity ->
-            recipeDao.insert(recipeEntity)
+        if (data != null) {
+            recipeDao.insertAll(data)
         }
     }
 

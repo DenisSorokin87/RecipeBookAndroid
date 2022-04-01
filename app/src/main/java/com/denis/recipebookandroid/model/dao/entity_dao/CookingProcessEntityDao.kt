@@ -1,6 +1,7 @@
 package com.denis.recipebookandroid.model.dao.entity_dao
 
 import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 import com.denis.recipebookandroid.model.dao.entities.CookingProcessEntity
 
 @Dao
@@ -11,6 +12,9 @@ interface CookingProcessEntityDao {
 
     @Insert
     fun insert(task: CookingProcessEntity)
+
+    @Insert(onConflict = REPLACE)
+    fun insertAll(list : List<CookingProcessEntity>)
 
     @Update
     fun update(task: CookingProcessEntity)

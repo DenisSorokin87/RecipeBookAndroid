@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInUpRepository() {
+class SignInUpRepository(): ISignInUpRepository {
     private val loginService = RetrofitInstance.getLoginServiceInstance()
 
     fun login(loginName: String, password: String, dataSourceCall: DataSourceCall<LoggedInUser>) {
@@ -51,6 +51,14 @@ class SignInUpRepository() {
 
             })
 
+    }
+
+    override suspend fun login(loginName: String, password: String) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun createNewUser(user: User) {
+        TODO("Not yet implemented")
     }
 
 

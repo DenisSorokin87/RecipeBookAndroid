@@ -22,15 +22,14 @@ import com.denis.recipebookandroid.view.ui.create_recipe.RecipeCreateFragment
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
 import com.denis.recipebookandroid.view.ui.login.LoginViewModel
 import com.denis.recipebookandroid.view.ui.login.LoginViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserMainFragment : Fragment(R.layout.user_main_fragment) {
 
 
-//    private val userMainFragment by viewModels<UserMainViewModel>()
 
-    private lateinit var userViewModel: UserMainViewModel
-    private lateinit var loginViewModel:LoginViewModel
-//    private val loginViewModel: LoginViewModel by activityViewModels()
+    private val userViewModel: UserMainViewModel by viewModel()
+    private val loginViewModel:LoginViewModel by viewModel()
     private lateinit var recipesRecycler: RecyclerView
     private lateinit var recipeRecyclerAdapter: RecipeRecyclerAdapter
     private lateinit var signInBtn: Button
@@ -44,8 +43,8 @@ class UserMainFragment : Fragment(R.layout.user_main_fragment) {
         userNameTitle= view.findViewById(R.id.logged_id_user_name)
         progress = view.findViewById(R.id.loading)
 
-        userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory(requireActivity().application))[UserMainViewModel::class.java]
-        loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
+//        userViewModel = ViewModelProvider(requireActivity(), UserMainViewModelFactory(requireActivity().application))[UserMainViewModel::class.java]
+//        loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
 
         loginViewModelObserve()
         recipeRecyclerInit(view)
