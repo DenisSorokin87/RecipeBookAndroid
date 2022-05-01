@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.databinding.FragmentRegistrationBinding
 import com.denis.recipebookandroid.model.data.User
@@ -15,16 +14,8 @@ import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
+class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
-//    private lateinit var firstName: EditText
-//    private lateinit var lastName: EditText
-//    private lateinit var loginName: EditText
-//    private lateinit var email: EditText
-//    private lateinit var userPassword: EditText
-//    private lateinit var userPasswordRepeat: EditText
-//    private lateinit var progressBar: ProgressBar
-//    private lateinit var registerBtn: Button
 
     private val registerViewModel: RegistrationViewModel by viewModel()
 
@@ -43,21 +34,9 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        firstName = view.findViewById(R.id.user_name)
-//        lastName = view.findViewById(R.id.user_last_name)
-//        loginName = view.findViewById(R.id.user_login_name)
-//        email = view.findViewById(R.id.user_email)
-//        userPassword = view.findViewById(R.id.user_password)
-//        userPasswordRepeat = view.findViewById(R.id.user_password_repeat)
-//        progressBar = view.findViewById(R.id.loading)
-//        registerBtn = view.findViewById(R.id.register_btn)
-
         registerBtnListener()
 
-//        registerViewModel = ViewModelProvider(requireActivity(), RegistrationViewModelFactory())[RegistrationViewModel::class.java]
         viewModelObserve()
-
-
     }
 
     private fun viewModelObserve() {
