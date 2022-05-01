@@ -16,15 +16,11 @@ class RegistrationViewModel(private val signInUpRepository: SignInUpRepository) 
     fun createNewUser(user: User){
         _registerLiveData.value = LoadingState.LOADING()
 
-        signInUpRepository.createNewUser(user, object: DataSourceCall<String>{
-            override fun onSuccess(data: String) {
-                _registerLiveData.value = LoadingState.LOADED(data)
-            }
 
-            override fun onError(error: String) {
-                _registerLiveData.value = LoadingState.Error(error)
-            }
-        })
+//                _registerLiveData.value = LoadingState.LOADED(signInUpRepository.createNewUser(user))
+
+
+//                _registerLiveData.value = LoadingState.Error(error)
     }
 
 }

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".model.app.MyApp">
         <activity
             android:name="com.denis.recipebookandroid.view.ui.MainActivity"
             android:exported="true">

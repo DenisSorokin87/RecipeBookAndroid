@@ -3,10 +3,13 @@ package com.denis.recipebookandroid.view.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.repositories.SignInUpRepository
 import com.denis.recipebookandroid.model.states.LoadingState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewModel() {
 
@@ -34,24 +37,20 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
 //        return liveData
 //    }
 
-   fun makeLogIn(login: String, password: String){
+    fun makeLogIn(login: String, password: String) {
 
-       _loginLiveData.value = LoadingState.LOADING()
+        _loginLiveData.value = LoadingState.LOADING()
 
-       signInUpRepository.login(login, password, object : DataSourceCall<LoggedInUser>{
-           override fun onSuccess(data: LoggedInUser) {
-               _loginLiveData.value = LoadingState.LOADED(data)
-               _loggedInLiveData.value = data
-           }
 
-           override fun onError(error: String) {
-              _loginLiveData.value = LoadingState.Error(error)
-           }
+        viewModelScope.launch(Dispatchers.IO) {
+            _loginLiveData.postValue(LoadingState.LOADED(signInUpRepository.login(login, password)))
+//            _loggedInLiveData.value = _loginLiveData.postValue("")
+        }
 
-       })
-   }
 
-    fun checkIfLoginExist(login: kotlin.String){
+    }
+
+    fun checkIfLoginExist(login: kotlin.String) {
 //        _liveData.value = "You can use this Login Name"
     }
 

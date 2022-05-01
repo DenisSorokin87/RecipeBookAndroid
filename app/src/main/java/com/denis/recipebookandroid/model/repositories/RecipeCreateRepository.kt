@@ -9,7 +9,7 @@ import com.denis.recipebookandroid.model.states.CallResult
 class RecipeCreateRepository(private val apiService: ApiService) {
 
 
-    suspend fun createNewRecipe(recipe: Recipe) {
-        apiService.createNewRecipe(recipe)
+    suspend fun createNewRecipe(recipe: Recipe): Recipe {
+        return apiService.createNewRecipe(recipe)
     }
 }

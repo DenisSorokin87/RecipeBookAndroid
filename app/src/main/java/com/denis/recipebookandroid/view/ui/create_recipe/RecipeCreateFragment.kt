@@ -50,8 +50,6 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
                 binding.dishTypeSpinner.adapter = it
             }
 
-        recipeViewModel = ViewModelProvider(requireActivity(), RecipeCreateViewModelFactory(requireActivity().application))[RecipeCreateViewModel::class.java]
-
         viewModelObserve()
 
         addIngredientBtnListener()

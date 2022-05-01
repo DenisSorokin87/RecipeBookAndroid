@@ -13,7 +13,7 @@ import retrofit2.http.Query
 interface LoginService {
 
     @GET("/RecipeBook-1.0/rest/login/")
-   suspend fun makeLogIn(@Query("loginName") loginName: String, @Query("password") password: String): Call<CallResult<LoggedInUser>>
+   suspend fun makeLogIn(@Query("loginName") loginName: String, @Query("password") password: String): LoggedInUser
 
     @GET("/RecipeBook-1.0/rest/login/checkIfExist")
     suspend fun checkIfLoginExist(@Query("loginName") loginName: String): Call<Boolean>

@@ -4,9 +4,11 @@ import android.app.Application
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
 import com.denis.recipebookandroid.model.dao.data_base.AppRecipeDataBase
 import com.denis.recipebookandroid.model.dao.db_instances.RecipeDBInstance
+import com.denis.recipebookandroid.model.repositories.LoggedInUserRepository
 import com.denis.recipebookandroid.model.repositories.RecipeCreateRepository
 import com.denis.recipebookandroid.model.repositories.SignInUpRepository
 import com.denis.recipebookandroid.model.repositories.UserMainRepository
+import com.denis.recipebookandroid.view.ui.create_recipe.RecipeCreateViewModel
 import com.denis.recipebookandroid.view.ui.login.LoginViewModel
 import com.denis.recipebookandroid.view.ui.registration.RegistrationViewModel
 import com.denis.recipebookandroid.view.ui.user_main.UserMainViewModel
@@ -33,10 +35,12 @@ class MyApp : Application() {
         single { SignInUpRepository(get()) }
         single { UserMainRepository(get(), get()) }
         single { RecipeCreateRepository(get()) }
+        single { LoggedInUserRepository() }
 
         viewModel { UserMainViewModel(get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { RegistrationViewModel(get()) }
+        viewModel { RecipeCreateViewModel(get()) }
 
     }
 

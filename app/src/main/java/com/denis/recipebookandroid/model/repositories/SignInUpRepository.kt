@@ -12,22 +12,9 @@ import retrofit2.Response
 
 class SignInUpRepository(private val loginService: LoginService) {
 
-    suspend fun login(loginName: String, password: String, dataSourceCall: DataSourceCall<LoggedInUser>) {
-       val signInCall = loginService.makeLogIn(loginName, password)
-       signInCall.enqueue(object : Callback<CallResult<LoggedInUser>> {
-           override fun onResponse(call: Call<CallResult<LoggedInUser>>, response: Response<CallResult<LoggedInUser>>) {
-               response.body()?.let {
-                when(it.status){
-                    "SUCCESS" -> it.dataList?.let { it1 -> dataSourceCall.onSuccess(it1.last()) }
-                    "FAILED" -> dataSourceCall.onError(it.msg)
-                    else -> {throw Exception()}
-                }
-               }
-           }
-           override fun onFailure(call: Call<CallResult<LoggedInUser>>, t: Throwable) {
-               t.message?.let { dataSourceCall.onError(it) }
-           }
-       })
+    suspend fun login(loginName: String, password: String) : LoggedInUser {
+     return loginService.makeLogIn(loginName, password)
+
     }
 
     suspend fun createNewUser(user: User, dataSourceCall: DataSourceCall<String>){
