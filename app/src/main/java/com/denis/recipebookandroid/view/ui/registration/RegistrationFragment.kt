@@ -13,10 +13,10 @@ import com.denis.recipebookandroid.model.data.User
 import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.login.LoginFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
 
-    private lateinit var registerViewModel: RegistrationViewModel
 //    private lateinit var firstName: EditText
 //    private lateinit var lastName: EditText
 //    private lateinit var loginName: EditText
@@ -25,6 +25,8 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
 //    private lateinit var userPasswordRepeat: EditText
 //    private lateinit var progressBar: ProgressBar
 //    private lateinit var registerBtn: Button
+
+    private val registerViewModel: RegistrationViewModel by viewModel()
 
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
@@ -52,7 +54,7 @@ class RegistrationFragment:  Fragment(R.layout.fragment_registration) {
 
         registerBtnListener()
 
-        registerViewModel = ViewModelProvider(requireActivity(), RegistrationViewModelFactory())[RegistrationViewModel::class.java]
+//        registerViewModel = ViewModelProvider(requireActivity(), RegistrationViewModelFactory())[RegistrationViewModel::class.java]
         viewModelObserve()
 
 

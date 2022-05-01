@@ -1,19 +1,17 @@
 package com.denis.recipebookandroid.model.repositories
 
-import android.content.Context
-import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
-import com.denis.recipebookandroid.model.dao.db_instances.RecipeDBInstance
+import com.denis.recipebookandroid.model.api.ApiService
 import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
 import com.denis.recipebookandroid.model.dao.entity_dao.RecipeEntityDao
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.CallResult
 import com.google.gson.Gson
 
-class UserMainRepository(private val context: Context) {
+class UserMainRepository(
+    private val apiService: ApiService,
+    private val recipeDao: RecipeEntityDao
+) {
 
-    private val apiService = RetrofitInstance.getRetrofitInstance()
-    private val recipeDataBase = RecipeDBInstance(context).getRecipeDataBase()
-    private val recipeDao: RecipeEntityDao = recipeDataBase.getRecipeEntityDao()
 
     suspend fun getAllRecipes(): CallResult<Recipe> {
 
@@ -25,14 +23,14 @@ class UserMainRepository(private val context: Context) {
                 result.msg
             )
 
-            insertDataToDB(context, result.dataList)
+            insertDataToDB(result.dataList)
             return CallResult(getRecipesFromDB(), result.status, result.msg)
         } catch (e: Exception) {
             CallResult(emptyList(), "FAILED", e.message!!)
         }
     }
 
-    fun getRecipesFromDB(): List<Recipe> {
+    suspend fun getRecipesFromDB(): List<Recipe> {
 
         return if (recipeDao.getAll()
                 .isNotEmpty()
@@ -41,13 +39,13 @@ class UserMainRepository(private val context: Context) {
     }
 
 
-    fun addRecipeToUser(recipeId: Int, userId: Int) {
+    suspend fun addRecipeToUser(recipeId: Int, userId: Int) {
 
 
     }
 
 
-    private fun insertDataToDB(context: Context, data: List<RecipeEntity>?) {
+    private suspend fun insertDataToDB(data: List<RecipeEntity>?) {
         recipeDao.cleanSchema()
         data?.forEach { recipeEntity ->
             recipeDao.insert(recipeEntity)

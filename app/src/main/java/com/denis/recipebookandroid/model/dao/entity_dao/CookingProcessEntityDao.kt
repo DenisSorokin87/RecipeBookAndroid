@@ -7,15 +7,15 @@ import com.denis.recipebookandroid.model.dao.entities.CookingProcessEntity
 interface CookingProcessEntityDao {
 
     @Query("SELECT * FROM CookingProcessEntity")
-    fun getAll(): List<CookingProcessEntity>
+    suspend fun getAll(): List<CookingProcessEntity>
 
     @Insert
-    fun insert(task: CookingProcessEntity)
+    suspend fun insert(task: CookingProcessEntity)
 
     @Update
-    fun update(task: CookingProcessEntity)
+    suspend fun update(task: CookingProcessEntity)
 
     @Delete
-    fun delete(task: CookingProcessEntity)
+    suspend fun delete(task: CookingProcessEntity)
 
 }

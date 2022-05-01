@@ -1,6 +1,7 @@
 package com.denis.recipebookandroid.model.repositories
 
 import com.denis.recipebookandroid.model.DataSourceCall
+import com.denis.recipebookandroid.model.api.LoginService
 import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
 import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.states.CallResult
@@ -9,10 +10,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInUpRepository() {
-    private val loginService = RetrofitInstance.getLoginServiceInstance()
+class SignInUpRepository(private val loginService: LoginService) {
 
-    fun login(loginName: String, password: String, dataSourceCall: DataSourceCall<LoggedInUser>) {
+    suspend fun login(loginName: String, password: String, dataSourceCall: DataSourceCall<LoggedInUser>) {
        val signInCall = loginService.makeLogIn(loginName, password)
        signInCall.enqueue(object : Callback<CallResult<LoggedInUser>> {
            override fun onResponse(call: Call<CallResult<LoggedInUser>>, response: Response<CallResult<LoggedInUser>>) {
@@ -30,7 +30,7 @@ class SignInUpRepository() {
        })
     }
 
-    fun createNewUser(user: User, dataSourceCall: DataSourceCall<String>){
+    suspend fun createNewUser(user: User, dataSourceCall: DataSourceCall<String>){
         val signUpCall = loginService.createNewUser(user)
         signUpCall.enqueue(object : Callback<CallResult<Nothing>>{
                 override fun onResponse(call: Call<CallResult<Nothing>>, response: Response<CallResult<Nothing>>) {

@@ -8,14 +8,14 @@ import com.denis.recipebookandroid.model.dao.entities.IngredientEntity
 interface IngredientEntityDao {
 
     @Query("SELECT * FROM IngredientEntity")
-    fun getAll(): List<IngredientEntity>
+    suspend fun getAll(): List<IngredientEntity>
 
     @Insert
-    fun insert(task: IngredientEntity)
+    suspend fun insert(task: IngredientEntity)
 
     @Update
-    fun update(task: IngredientEntity)
+    suspend fun update(task: IngredientEntity)
 
     @Delete
-    fun delete(task: IngredientEntity)
+    suspend fun delete(task: IngredientEntity)
 }

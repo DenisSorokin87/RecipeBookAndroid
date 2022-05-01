@@ -8,25 +8,25 @@ import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
 interface RecipeEntityDao  {
 
     @Query("SELECT * FROM RecipeEntity")
-    fun getAll(): List<RecipeEntity>
+    suspend fun getAll(): List<RecipeEntity>
 
     @Query("SELECT * FROM RecipeEntity WHERE recipeId = :id")
-    fun getById(id: Long): RecipeEntity?
+    suspend fun getById(id: Long): RecipeEntity?
 
 //    @Query("SELECT * FROM RecipeEntity WHERE userId = :useId")
 //    fun getAllUserTasks(useId: Long): List<RecipeEntity>
 
     @Query("DELETE FROM RecipeEntity")
-    fun cleanSchema()
+    suspend fun cleanSchema()
 
     @Insert
-    fun insert(task: RecipeEntity)
+    suspend fun insert(task: RecipeEntity)
 
     @Update
-    fun update(task: RecipeEntity)
+    suspend fun update(task: RecipeEntity)
 
     @Delete
-    fun delete(task: RecipeEntity)
+    suspend fun delete(task: RecipeEntity)
 
 
 }

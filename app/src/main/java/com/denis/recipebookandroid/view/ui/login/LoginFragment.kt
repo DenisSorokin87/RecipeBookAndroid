@@ -1,29 +1,24 @@
 package com.denis.recipebookandroid.view.ui.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.denis.recipebookandroid.R
-import com.denis.recipebookandroid.databinding.FragmentLoginBinding
-import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.states.LoadingState
 import com.denis.recipebookandroid.view.ui.BlankFragment
 import com.denis.recipebookandroid.view.ui.MainActivity
 import com.denis.recipebookandroid.view.ui.registration.RegistrationFragment
 import com.denis.recipebookandroid.view.ui.user_main.UserMainFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment(R.layout.fragment_login){
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
-//    private val loginViewModel by viewModels<MainViewModel>()
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var isLoggedIn: String
     private lateinit var logInBtn: Button
     private lateinit var loginText: EditText
@@ -44,7 +39,10 @@ class LoginFragment : Fragment(R.layout.fragment_login){
         logInBtnListener()
         signUpBtnListener()
 
-        loginViewModel = ViewModelProvider(requireActivity(), LoginViewModelFactory())[LoginViewModel::class.java]
+//        loginViewModel = ViewModelProvider(
+//            requireActivity(),
+//            LoginViewModelFactory()
+//        )[LoginViewModel::class.java]
 
         loginLiveDataObserve()
 

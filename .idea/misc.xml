@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/drawable-v24/field.xml" value="0.2682291666666667" />
+        <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/drawable-v24/list_item_style.xml" value="0.2595" />
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/drawable-v24/login_button_style.xml" value="0.2682291666666667" />
+        <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2595" />
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/layout/dish_type_item.xml" value="0.24010416666666667" />
         <entry key="..\:/Adnroid/RecipeBookAndroid/app/src/main/res/layout/fragment_login.xml" value="0.35260416666666666" />
