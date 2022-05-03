@@ -12,7 +12,7 @@ class SignInUpApiDataSource(private val loginService: LoginService) : ISignInUpA
             loginService.makeLogIn(loginName, password)
 
         } catch (e: Exception) {
-            CallResult(null, e.message, e)
+            CallResult(null, e.message)
         }
     }
 
@@ -21,7 +21,7 @@ class SignInUpApiDataSource(private val loginService: LoginService) : ISignInUpA
         return try {
             loginService.createNewUser(user)
         }catch (e: Exception){
-            CallResult(null, e.message, e)
+            CallResult(null, e.message)
         }
     }
 
@@ -29,7 +29,7 @@ class SignInUpApiDataSource(private val loginService: LoginService) : ISignInUpA
         return try {
             loginService.checkIfLoginExist(loginName)
         }catch (e: Exception){
-            CallResult(null, e.message, e)
+            CallResult(null, e.message)
         }
     }
 }

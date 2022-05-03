@@ -5,15 +5,25 @@ import com.denis.recipebookandroid.model.data.User
 import com.denis.recipebookandroid.model.states.CallResult
 
 class UserApiDataSource(private val userService: UserService) : IUserApiDataSource {
+
+
     override suspend fun getUserRecipes(userId: Long): CallResult<List<Long>> {
-        TODO("Not yet implemented")
+        return try {
+            userService.getUserRecipes(userId)
+        }catch (e: Exception){
+            throw Exception(e)
+        }
     }
 
     override suspend fun updateUser(user: User): CallResult<User> {
-        TODO("Not yet implemented")
+        return try {
+            userService.updateUser(user)
+        }catch (e: Exception){
+            throw Exception(e)
+        }
     }
 
     override suspend fun getUser(id: Long): CallResult<User> {
-        TODO("Not yet implemented")
+       return CallResult(null, "User")
     }
 }

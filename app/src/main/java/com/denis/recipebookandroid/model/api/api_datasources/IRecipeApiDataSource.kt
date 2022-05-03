@@ -8,9 +8,9 @@ interface IRecipeApiDataSource {
 
     suspend fun createNewRecipe(recipe: Recipe): CallResult<RecipeEntity>
 
-    suspend fun getAllRecipes(): CallResult<RecipeEntity>
+    suspend fun getAllRecipes(): CallResult<List<RecipeEntity>>
 
-    suspend fun updateRecipe(recipe: Recipe) : CallResult<Recipe>
+    suspend fun updateRecipe(recipe: Recipe) : CallResult<RecipeEntity>
 
     suspend fun addAllRecipes(recipeList: List<Recipe>) : CallResult<List<RecipeEntity>>
 }

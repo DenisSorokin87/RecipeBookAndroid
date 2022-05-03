@@ -9,22 +9,33 @@ class RecipeApiDataSource(private val recipeService: RecipeService) : IRecipeApi
 
     override suspend fun createNewRecipe(recipe: Recipe): CallResult<RecipeEntity> {
         return try {
-
             recipeService.createNewRecipe(recipe)
-        }catch (e: Exception){
-            CallResult(null, e.message, e)
+        } catch (e: Exception) {
+            CallResult(null, e.message)
         }
     }
 
-    override suspend fun getAllRecipes(): CallResult<RecipeEntity> {
-        TODO("Not yet implemented")
+    override suspend fun getAllRecipes(): CallResult<List<RecipeEntity>> {
+        return try {
+            recipeService.getAllRecipes()
+        } catch (e: Exception) {
+            CallResult(null, e.message)
+        }
     }
 
-    override suspend fun updateRecipe(recipe: Recipe): CallResult<Recipe> {
-        TODO("Not yet implemented")
+    override suspend fun updateRecipe(recipe: Recipe): CallResult<RecipeEntity> {
+        return try {
+            recipeService.updateRecipe(recipe)
+        } catch (e: Exception) {
+            CallResult(null, e.message)
+        }
     }
 
     override suspend fun addAllRecipes(recipeList: List<Recipe>): CallResult<List<RecipeEntity>> {
-        TODO("Not yet implemented")
+        return try {
+            recipeService.addAllRecipes(recipeList)
+        } catch (e: Exception) {
+            CallResult(null, e.message)
+        }
     }
 }
