@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.denis.recipebookandroid.model.DataSourceCall
 import com.denis.recipebookandroid.model.data.LoggedInUser
 import com.denis.recipebookandroid.model.repositories.SignInUpRepository
+import com.denis.recipebookandroid.model.repositories.interfaces.ISignInUpRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewModel() {
+class LoginViewModel(private val signInUpRepository: ISignInUpRepository) : ViewModel() {
 
 //    private val _liveData = MutableLiveData<LoggedInUser>()
 //    val liveData: LiveData<LoggedInUser> = _liveData // another option to make MutableLiveData unchangeable to the user at the Activity/Fragment
@@ -38,14 +39,14 @@ class LoginViewModel(private val signInUpRepository: SignInUpRepository) : ViewM
 //    }
 
     fun makeLogIn(login: String, password: String) {
-
-        _loginLiveData.value = LoadingState.LOADING()
-
-
-        viewModelScope.launch(Dispatchers.IO) {
-            _loginLiveData.postValue(LoadingState.LOADED(signInUpRepository.login(login, password)))
-//            _loggedInLiveData.value = _loginLiveData.postValue("")
-        }
+//
+//        _loginLiveData.value = LoadingState.LOADING()
+//
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//            _loginLiveData.postValue(LoadingState.LOADED(signInUpRepository.login(login, password)))
+////            _loggedInLiveData.value = _loginLiveData.postValue("")
+//        }
 
 
     }

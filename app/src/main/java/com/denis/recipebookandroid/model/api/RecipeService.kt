@@ -9,11 +9,14 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface ApiService {
+interface RecipeService {
 
-    @GET("/RecipeBook-1.0/rest/recipe")
+    @GET("/recipe/getAll")
     suspend fun getAllRecipes(): CallResult<RecipeEntity>
 
-    @POST("recipe/create")
-    suspend fun createNewRecipe(@Body recipe: Recipe): Recipe
+    @POST("/recipe/addNew")
+    suspend fun createNewRecipe(@Body recipe: Recipe): CallResult<RecipeEntity>
+
+    @POST
+    suspend fun addAllRecipes(@Body recipeList: List<Recipe>) : CallResult<List<RecipeEntity>>
 }

@@ -10,12 +10,15 @@ interface IngredientEntityDao {
     @Query("SELECT * FROM IngredientEntity")
     suspend fun getAll(): List<IngredientEntity>
 
-    @Insert
-    suspend fun insert(task: IngredientEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(ingredient: IngredientEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(ingredientList: List<IngredientEntity>)
 
     @Update
-    suspend fun update(task: IngredientEntity)
+    suspend fun update(ingredient: IngredientEntity)
 
     @Delete
-    suspend fun delete(task: IngredientEntity)
+    suspend fun delete(ingredient: IngredientEntity)
 }

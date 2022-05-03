@@ -19,14 +19,17 @@ interface RecipeEntityDao  {
     @Query("DELETE FROM RecipeEntity")
     suspend fun cleanSchema()
 
-    @Insert
-    suspend fun insert(task: RecipeEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(recipe: RecipeEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(recipeList: List<RecipeEntity>)
 
     @Update
-    suspend fun update(task: RecipeEntity)
+    suspend fun update(recipe: RecipeEntity)
 
     @Delete
-    suspend fun delete(task: RecipeEntity)
+    suspend fun delete(recipe: RecipeEntity)
 
 
 }

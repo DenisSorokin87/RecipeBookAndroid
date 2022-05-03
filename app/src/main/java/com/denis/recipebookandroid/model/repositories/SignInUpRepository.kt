@@ -1,43 +1,22 @@
 package com.denis.recipebookandroid.model.repositories
 
-import com.denis.recipebookandroid.model.DataSourceCall
-import com.denis.recipebookandroid.model.api.LoginService
-import com.denis.recipebookandroid.model.api.retrofits.RetrofitInstance
+import com.denis.recipebookandroid.model.api.api_datasources.ISignInUpApiDataSource
+import com.denis.recipebookandroid.model.api.api_datasources.SignInUpApiDataSource
 import com.denis.recipebookandroid.model.data.LoggedInUser
-import com.denis.recipebookandroid.model.states.CallResult
 import com.denis.recipebookandroid.model.data.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.denis.recipebookandroid.model.repositories.interfaces.ISignInUpRepository
 
-class SignInUpRepository(private val loginService: LoginService) {
-
-    suspend fun login(loginName: String, password: String) : LoggedInUser {
-     return loginService.makeLogIn(loginName, password)
-
+class SignInUpRepository(private val SingInUpDS: ISignInUpApiDataSource) : ISignInUpRepository {
+    override suspend fun login(loginName: String, password: String): LoggedInUser {
+        TODO("Not yet implemented")
     }
 
-    suspend fun createNewUser(user: User, dataSourceCall: DataSourceCall<String>){
-        val signUpCall = loginService.createNewUser(user)
-        signUpCall.enqueue(object : Callback<CallResult<Nothing>>{
-                override fun onResponse(call: Call<CallResult<Nothing>>, response: Response<CallResult<Nothing>>) {
-                    response.body()?.let {
-                        when(it.status){
-                            "SUCCESS"-> {
-                                dataSourceCall.onSuccess(it.status)
-                            }
-                            "FAILED" -> dataSourceCall.onError("${it.status} - ${it.msg}")
-                        }
-                    }
-                }
+    override suspend fun createNewUser(user: User): User {
+        TODO("Not yet implemented")
+    }
 
-                override fun onFailure(call: Call<CallResult<Nothing>>, t: Throwable) {
-                    println("Failure + ${t.message}")
-                    println(t.cause)
-                }
-
-            })
-
+    override suspend fun checkIfLoginExist(loginName: String): Boolean {
+        TODO("Not yet implemented")
     }
 
 

@@ -2,7 +2,8 @@ package com.denis.recipebookandroid.model.api.retrofits
 
 import com.denis.recipebookandroid.model.logger.OkHttpLogs
 import com.denis.recipebookandroid.model.api.LoginService
-import com.denis.recipebookandroid.model.api.ApiService
+import com.denis.recipebookandroid.model.api.RecipeService
+import com.denis.recipebookandroid.model.api.UserService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -36,7 +37,11 @@ object RetrofitInstance {
         return retrofit.create(LoginService::class.java)
     }
 
-    fun getRetrofitInstance(): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun getRecipeRetrofitInstance(): RecipeService {
+        return retrofit.create(RecipeService::class.java)
+    }
+
+    fun getUserRetrofitInstance(): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }

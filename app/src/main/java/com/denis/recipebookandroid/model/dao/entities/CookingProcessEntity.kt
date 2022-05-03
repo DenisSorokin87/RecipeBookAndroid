@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class CookingProcessEntity(
     @PrimaryKey
-    val processId: Int,
+    val processId: Long,
     val processNumber: Int,
     val description: String,
 )

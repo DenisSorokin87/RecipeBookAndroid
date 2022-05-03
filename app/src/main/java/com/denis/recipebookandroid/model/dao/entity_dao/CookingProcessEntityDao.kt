@@ -9,13 +9,16 @@ interface CookingProcessEntityDao {
     @Query("SELECT * FROM CookingProcessEntity")
     suspend fun getAll(): List<CookingProcessEntity>
 
-    @Insert
-    suspend fun insert(task: CookingProcessEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(cookingProcess: CookingProcessEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(cookingProcessList: List<CookingProcessEntity>)
 
     @Update
-    suspend fun update(task: CookingProcessEntity)
+    suspend fun update(cookingProcess: CookingProcessEntity)
 
     @Delete
-    suspend fun delete(task: CookingProcessEntity)
+    suspend fun delete(cookingProcess: CookingProcessEntity)
 
 }

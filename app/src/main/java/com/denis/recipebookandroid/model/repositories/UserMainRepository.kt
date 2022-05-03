@@ -1,55 +1,32 @@
 package com.denis.recipebookandroid.model.repositories
 
-import com.denis.recipebookandroid.model.api.ApiService
+import com.denis.recipebookandroid.model.api.api_datasources.IRecipeApiDataSource
+import com.denis.recipebookandroid.model.api.api_datasources.RecipeApiDataSource
+import com.denis.recipebookandroid.model.dao.db_datasources.RecipeDbDataSource
 import com.denis.recipebookandroid.model.dao.entities.RecipeEntity
-import com.denis.recipebookandroid.model.dao.entity_dao.RecipeEntityDao
 import com.denis.recipebookandroid.model.data.Recipe
+import com.denis.recipebookandroid.model.repositories.interfaces.IUserMainRepository
 import com.denis.recipebookandroid.model.states.CallResult
-import com.google.gson.Gson
 
 class UserMainRepository(
-    private val apiService: ApiService,
-    private val recipeDao: RecipeEntityDao
-) {
-
-
-    suspend fun getAllRecipes(): CallResult<Recipe> {
-
-        return try {
-            val result = apiService.getAllRecipes()
-            if (result.dataList.isNullOrEmpty()) return CallResult(
-                emptyList(),
-                status = "FAILED",
-                result.msg
-            )
-
-            insertDataToDB(result.dataList)
-            return CallResult(getRecipesFromDB(), result.status, result.msg)
-        } catch (e: Exception) {
-            CallResult(emptyList(), "FAILED", e.message!!)
-        }
+    private val recipeApiDataSource: IRecipeApiDataSource,
+    private val recipeDbDataSource: RecipeDbDataSource
+) : IUserMainRepository {
+    override suspend fun getAllRecipes(): CallResult<RecipeEntity> {
+        return recipeApiDataSource.getAllRecipes()
     }
 
-    suspend fun getRecipesFromDB(): List<Recipe> {
+    override suspend fun getRecipesFromDB(): List<RecipeEntity> {
+        TODO("Not yet implemented")
+    }
 
-        return if (recipeDao.getAll()
-                .isNotEmpty()
-        ) Gson().fromJson(Gson().toJson(recipeDao.getAll()), Array<Recipe>::class.java).toList()
-        else return emptyList()
+    override suspend fun addRecipeToUser(recipeId: Int, userId: Int) {
+        TODO("Not yet implemented")
     }
 
 
-    suspend fun addRecipeToUser(recipeId: Int, userId: Int) {
-
-
-    }
-
-
-    private suspend fun insertDataToDB(data: List<RecipeEntity>?) {
-        recipeDao.cleanSchema()
-        data?.forEach { recipeEntity ->
-            recipeDao.insert(recipeEntity)
-        }
+    override suspend fun insertDataToDB(data: List<RecipeEntity>?) {
+        recipeDbDataSource.insertDataToDB(data)
     }
 
 

@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 data class RecipeEntity(
     @PrimaryKey
     @SerializedName("recipeId")
-    val recipeId: Int,
+    val recipeId: Long,
     @SerializedName("dishName")
     val recipeTitle: String,
     @SerializedName("dishPhotoUrl")

@@ -6,11 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.repositories.UserMainRepository
+import com.denis.recipebookandroid.model.repositories.interfaces.IUserMainRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserMainViewModel(private val userMainRepository: UserMainRepository) : ViewModel() {
+class UserMainViewModel(private val userMainRepository: IUserMainRepository) : ViewModel() {
     private val _userLiveData = MutableLiveData<LoadingState<List<Recipe>>>()
     val userLiveData: LiveData<LoadingState<List<Recipe>>> = _userLiveData
 
@@ -19,20 +20,20 @@ class UserMainViewModel(private val userMainRepository: UserMainRepository) : Vi
         viewModelScope.launch(Dispatchers.IO) {
 
             val callResult = userMainRepository.getAllRecipes()
-            if (callResult.dataList.isNullOrEmpty()) {
-                _userLiveData.postValue(LoadingState.Error(callResult.msg))
+            if (((callResult.data) as List<*>).isNullOrEmpty()) {
+                _userLiveData.postValue(callResult.msg?.let { LoadingState.Error(it) })
                 getRecipesFromLocalDB()
             }
-            _userLiveData.postValue(LoadingState.LOADED(callResult.dataList!!))
+//            _userLiveData.postValue(LoadingState.LOADED(callResult.data as List<*>))
         }
     }
 
     private fun getRecipesFromLocalDB() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (userMainRepository.getRecipesFromDB().isNullOrEmpty())
-                _userLiveData.postValue(LoadingState.Error("There is no data stored in Data Base")
-            )
-            else _userLiveData.postValue(LoadingState.LOADED(userMainRepository.getRecipesFromDB()))
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            if (userMainRepository.getRecipesFromDB().isNullOrEmpty())
+//                _userLiveData.postValue(LoadingState.Error("There is no data stored in Data Base")
+//            )
+//            else _userLiveData.postValue(LoadingState.LOADED(userMainRepository.getRecipesFromDB()))
+//        }
     }
 }

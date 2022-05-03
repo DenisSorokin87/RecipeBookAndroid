@@ -22,11 +22,11 @@ class RecipeCreateViewModel(private val recipeCreateRepository: RecipeCreateRepo
 
         _recipeLiveData.value = LoadingState.LOADING()
 
-        viewModelScope.launch(Dispatchers.IO) {
-            _recipeLiveData.postValue(
-                LoadingState.LOADED(
-                    recipeCreateRepository.createNewRecipe(recipe)))
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+////            _recipeLiveData.postValue(
+////                LoadingState.LOADED(
+////                    recipeCreateRepository.createNewRecipe(recipe)))
+//        }
 
     }
 
