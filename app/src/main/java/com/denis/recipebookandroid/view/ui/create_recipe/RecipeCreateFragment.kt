@@ -1,13 +1,12 @@
 package com.denis.recipebookandroid.view.ui.create_recipe
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.denis.recipebookandroid.R
 import com.denis.recipebookandroid.databinding.RecipeCreateFragmentBinding
 import com.denis.recipebookandroid.model.data.CookingProcess
@@ -15,10 +14,12 @@ import com.denis.recipebookandroid.model.data.Ingredient
 import com.denis.recipebookandroid.model.data.IngredientAmountUnit
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.states.LoadingState
+import com.denis.recipebookandroid.view.ui.user_main.UserMainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
-    private lateinit var recipeViewModel: RecipeCreateViewModel
+    private val recipeCreateViewModel: RecipeCreateViewModel by viewModel()
 
     private val cookingProcessesList: ArrayList<CookingProcess> = ArrayList()
     private val ingredientList: ArrayList<Ingredient> = ArrayList()
@@ -61,7 +62,7 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
 
 
     private fun viewModelObserve() {
-        recipeViewModel.recipeLiveData.observe(requireActivity()){
+        recipeCreateViewModel.recipeLiveData.observe(requireActivity()){
             when(it){
                 is LoadingState.LOADING -> binding.loading.visibility = View.VISIBLE
                 is LoadingState.LOADED -> {
@@ -108,7 +109,7 @@ class RecipeCreateFragment : Fragment(R.layout.recipe_create_fragment) {
     private fun submitBtnListener() {
 
         binding.commitBtn.setOnClickListener {
-            recipeViewModel.createNewRecipe(Recipe(binding.recipeName.text.toString(),
+            recipeCreateViewModel.createNewRecipe(Recipe(binding.recipeName.text.toString(),
                 "DishImageUrl",
                 binding.dishDescription.text.toString(),
                 ingredientList, cookingProcessesList, binding.dishTypeSpinner.selectedItem.toString()))

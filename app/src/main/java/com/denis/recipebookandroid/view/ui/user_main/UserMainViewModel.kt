@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.denis.recipebookandroid.model.data.Recipe
+import com.denis.recipebookandroid.model.enum.ResponseStatus
 import com.denis.recipebookandroid.model.repositories.UserMainRepository
 import com.denis.recipebookandroid.model.repositories.interfaces.IUserMainRepository
 import com.denis.recipebookandroid.model.states.LoadingState
@@ -18,22 +19,31 @@ class UserMainViewModel(private val userMainRepository: IUserMainRepository) : V
     fun getAllRecipes() {
         _userLiveData.value = LoadingState.LOADING()
         viewModelScope.launch(Dispatchers.IO) {
-
-            val callResult = userMainRepository.getAllRecipes()
-            if (((callResult.data) as List<*>).isNullOrEmpty()) {
-                _userLiveData.postValue(callResult.msg?.let { LoadingState.Error(it) })
-                getRecipesFromLocalDB()
+            val response = userMainRepository.getAllRecipes()
+            when (response.status) {
+                ResponseStatus.Success -> _userLiveData.postValue(LoadingState.LOADED(response.data!!))
+                ResponseStatus.Failed -> {
+                    _userLiveData.postValue(LoadingState.Error(response.error!!))
+                    getRecipesFromLocalDB()
+                }
             }
-//            _userLiveData.postValue(LoadingState.LOADED(callResult.data as List<*>))
         }
     }
 
     private fun getRecipesFromLocalDB() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            if (userMainRepository.getRecipesFromDB().isNullOrEmpty())
-//                _userLiveData.postValue(LoadingState.Error("There is no data stored in Data Base")
-//            )
-//            else _userLiveData.postValue(LoadingState.LOADED(userMainRepository.getRecipesFromDB()))
-//        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = userMainRepository.getRecipesFromDB()
+            when (result.status) {
+                ResponseStatus.Failed -> {
+                    _userLiveData.postValue(
+                        LoadingState.Error("There is no data stored in Data Base"))
+                }
+                ResponseStatus.Success -> _userLiveData.postValue(
+                    LoadingState.LOADED(
+                        result.data!!
+                    )
+                )
+            }
+        }
     }
 }

@@ -6,11 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.denis.recipebookandroid.model.data.Recipe
 import com.denis.recipebookandroid.model.repositories.RecipeCreateRepository
+import com.denis.recipebookandroid.model.repositories.interfaces.IRecipeCreateRepository
 import com.denis.recipebookandroid.model.states.LoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RecipeCreateViewModel(private val recipeCreateRepository: RecipeCreateRepository) :
+class RecipeCreateViewModel(private val recipeCreateRepository: IRecipeCreateRepository) :
     ViewModel() {
 
     private val _recipeLiveData = MutableLiveData<LoadingState<Recipe>>()
