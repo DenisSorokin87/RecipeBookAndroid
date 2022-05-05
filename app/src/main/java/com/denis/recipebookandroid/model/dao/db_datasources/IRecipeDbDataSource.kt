@@ -10,5 +10,5 @@ interface IRecipeDbDataSource {
 
     suspend fun insertDataToDB(data: List<RecipeEntity>)
 
-    suspend fun getAllRecipesFromDB() : CallResult<List<Recipe>>
+    suspend fun getAllRecipesFromDB() : CallResult<List<RecipeEntity>>
 }

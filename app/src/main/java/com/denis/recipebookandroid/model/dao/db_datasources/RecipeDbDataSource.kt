@@ -13,14 +13,14 @@ class RecipeDbDataSource(private val recipeDb: RecipeEntityDao) : IRecipeDbDataS
         recipeEntity.let { recipeDb.insert(it)}
     }
 
-    override suspend fun insertDataToDB(data: List<RecipeEntity>) {
+    override suspend fun insertDataToDB(data: List<Recipe>) {
         recipeDb.cleanSchema()
+
         data.let { recipeDb.insertAll(it) }
     }
 
-    override suspend fun getAllRecipesFromDB() : CallResult<List<Recipe>>{
+    override suspend fun getAllRecipesFromDB() : CallResult<List<RecipeEntity>>{
         return try {
-
             CallResult(recipeDb.getAll(), msg = "")
         } catch (e: Exception){
             CallResult(data = null, e.message)
